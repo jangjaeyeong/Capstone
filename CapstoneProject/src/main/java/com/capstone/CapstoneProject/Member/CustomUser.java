@@ -1,13 +1,17 @@
 package com.capstone.CapstoneProject.Member;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
-public class customUser extends User {
+@Getter
+@Setter
+public class CustomUser extends User {
 
     public String profileName;
-    public customUser(String username, String userpassword,
+    public CustomUser(String username, String userpassword,
                       Collection<? extends GrantedAuthority> authorities) {
         super(username, userpassword, authorities);
     }

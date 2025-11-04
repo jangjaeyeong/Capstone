@@ -30,8 +30,8 @@ public class MyUserDetailService implements UserDetailsService {
                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
 
-        customUser customUser = new customUser(user.getUserID(), user.getPassword(), authorities);
-        customUser.profileName = user.getProfileName();
+        CustomUser customUser = new CustomUser(user.getUserID(), user.getPassword(), authorities);
+        customUser.setProfileName(user.getProfileName());
         return customUser;
 
     }
