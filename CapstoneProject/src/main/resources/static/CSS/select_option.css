@@ -1,0 +1,60 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f9;
+  color: #333;
+}
+
+header {
+  background: -webkit-linear-gradient(to left, #003366,#004080,#0059b3, #0073e6);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+select, button {
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+.result-section {
+  display: none;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
