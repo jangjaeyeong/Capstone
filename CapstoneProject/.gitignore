@@ -25,6 +25,12 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+# Spring 환경 파일 제외
+application.properties
+application.yml
+application-*.properties
+application-*.yml
+
 
 ### NetBeans ###
 /nbproject/private/
