@@ -48,6 +48,5 @@ public class MemberDTO {
                 .cellphone(formatCellphone)
                 .profileName(this.profileName)
                 .build();
-
     }
 }

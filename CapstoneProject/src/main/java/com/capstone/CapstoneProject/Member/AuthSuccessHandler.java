@@ -12,7 +12,9 @@ import java.util.Map;
 
 @Component
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
+    ObjectMapper mapper = new ObjectMapper();
 
+    @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication)
@@ -22,13 +24,12 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         responseBody.put("nickname", user.getProfileName());
         response.setContentType("application/json; charset=UTF-8");
 
-        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
+        mapper.writeValue(response.getOutputStream(), responseBody);
 
             /*
             js에서 처리는
             axios.post("/login", loginData)
               .then(res => console.log(res.data.nickname));
             */
-
     }
 }

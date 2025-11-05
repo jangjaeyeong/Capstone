@@ -1,5 +1,6 @@
 package com.capstone.CapstoneProject;
 
+import com.capstone.CapstoneProject.Member.AuthFailureHandler;
 import com.capstone.CapstoneProject.Member.AuthSuccessHandler;
 import jakarta.servlet.annotation.ServletSecurity;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class SecurityConfig {
     }
 
     private final AuthSuccessHandler authSuccessHandler;
+    private final AuthFailureHandler authFailureHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -42,7 +44,7 @@ public class SecurityConfig {
                 .usernameParameter("userID")
                 .passwordParameter("userPassword")
                 .successHandler(authSuccessHandler)
-//                .failureUrl("/signIn?error")
+                .failureHandler(authFailureHandler)
                 //html 연결 시 formLogin -> formLogin.loginPage
 
         );
