@@ -25,7 +25,7 @@ app = FastAPI(title="FastAPI")
 
 #사용자 메시지 1개 단위 구조
 class Message(BaseModel):
-    role: str    # 메시지 역할 ("system", "user", "assistant")
+    role: str | None = "user"   # role 없으면 자동으로 user
     content: str # 실제 메시지 내용 (텍스트)
 
 #요청 바디 전체 구조
@@ -33,6 +33,10 @@ class ChatReq(BaseModel):
     messages: list[Message]    # 여러 개의 메시지를 리스트 형태로 전달
     stream: bool | None = False     # 스트리밍 여부 (지금은 False로만 사용)
     temperature: float | None = 0.2   # 창의성 조절값 (0.2 ~ 1.0 사이)
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
 
 # API 엔드포인트 (핵심 부분)
 @app.post("/ai/chat")
@@ -45,7 +49,7 @@ async def chat(req: ChatReq):
     payload = {
         "model": MODEL_ID,          # 사용할 모델 ID
         "messages": [m.model_dump() for m in req.messages],  # Message 객체 → dict로 변환
-        "temperature": req.temperature or 0.2,         # 창의성 정도
+        "temperature": req.temperature or 0.2,         # 창의성 정도 -> 일관성 있는 답변
         "stream": False         # 스트리밍 비활성
     }
 
