@@ -39,6 +39,7 @@ async def health():
     return {"status": "ok"}
 
 # API 엔드포인트 (핵심 부분)
+#http://localhost:8000/ai/chat
 @app.post("/ai/chat")
 async def chat(req: ChatReq):
     #키가 없을 경우 (환경설정 오류)
