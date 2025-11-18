@@ -23,13 +23,11 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("nickname", user.getProfileName());
         response.setContentType("application/json; charset=UTF-8");
-
+        System.out.println(responseBody);
         mapper.writeValue(response.getOutputStream(), responseBody);
 
-            /*
-            js에서 처리는
-            axios.post("/login", loginData)
-              .then(res => console.log(res.data.nickname));
-            */
+//            js에서 처리는
+//            axios.post("/login", loginData)
+//              .then(res => console.log(res.data.nickname));
     }
 }

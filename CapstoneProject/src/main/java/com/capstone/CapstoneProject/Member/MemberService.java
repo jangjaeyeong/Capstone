@@ -27,6 +27,7 @@ public class MemberService {
         Optional<Member> userID = memberRepository.findAllByUserID(member.getUserID());
         Optional<Member> profileName = memberRepository.findAllByProfileName(member.getProfileName());
         Optional<Member> cellphone = memberRepository.findAllByCellphone(member.getCellphone());
+
         if(userID.isPresent()) {
             throw new IllegalArgumentException("이미 사용중인아이디 입니다.");
         }else if (profileName.isPresent()) {
@@ -34,7 +35,6 @@ public class MemberService {
         }else if (cellphone.isPresent()) {
             throw new IllegalArgumentException("이미 등록된 전화번호입니다.");
         }
-
         member.getAuthorities().addAll(userRole);
         memberRepository.save(member);
     }
