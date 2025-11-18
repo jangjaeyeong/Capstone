@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcd738b9-f799-4d33-a61c-d43264740445" name="변경" comment="AuthFailureHandler 구현">
+    <list default="true" id="fcd738b9-f799-4d33-a61c-d43264740445" name="변경" comment="Spring Project Recovery">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -562,7 +562,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763434954594</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Spring Project Recovery">
+      <option name="closed" value="true" />
+      <created>1763445638299</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1763445638299</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -575,7 +583,8 @@
     <MESSAGE value="json으로 닉네임 넘겨줌&#10;AuthFailureHandler 구현" />
     <MESSAGE value="stash" />
     <MESSAGE value="AuthFailureHandler 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="AuthFailureHandler 구현" />
+    <MESSAGE value="Spring Project Recovery" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spring Project Recovery" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
