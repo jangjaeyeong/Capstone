@@ -28,6 +28,7 @@ public class MemberDTO {
     @NotBlank(message = "비밀번호를 다시 입력해주세요.")
     private String confirmPassword;
 
+
     @AssertTrue(message = "비밀번호가 일치하지 않습니다.")
     public boolean isPasswordConfirmed() {
         return password.equals(confirmPassword);

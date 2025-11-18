@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Capstone.iml" filepath="$PROJECT_DIR$/.idea/Capstone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CapstoneProject.iml" filepath="$PROJECT_DIR$/.idea/modules/CapstoneProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CapstoneProject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CapstoneProject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CapstoneProject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CapstoneProject.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.capstone.CapstoneProject.iml" filepath="$PROJECT_DIR$/.idea/modules/com.capstone.CapstoneProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.capstone.CapstoneProject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.capstone.CapstoneProject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.capstone.CapstoneProject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.capstone.CapstoneProject.test.iml" />
     </modules>
   </component>
 </project>

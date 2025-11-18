@@ -39,12 +39,14 @@ public class SecurityConfig {
                 authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/**").permitAll());
         //Ngrok OPTION 문제 개선
+
         http.formLogin((form)
                 -> form.loginProcessingUrl("/login")
                 .usernameParameter("userID")
                 .passwordParameter("userPassword")
                 .successHandler(authSuccessHandler)
                 .failureHandler(authFailureHandler)
+                
                 //html 연결 시 formLogin -> formLogin.loginPage
 
         );

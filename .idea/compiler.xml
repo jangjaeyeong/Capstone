@@ -11,8 +11,10 @@
         <module name="CapstoneProject.main" />
       </profile>
     </annotationProcessing>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
+    <bytecodeTargetLevel target="17">
+      <module name="com.capstone.CapstoneProject" target="17" />
+      <module name="com.capstone.CapstoneProject.main" target="17" />
+      <module name="com.capstone.CapstoneProject.test" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

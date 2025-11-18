@@ -17,14 +17,13 @@ public class MemberService {
     public void saveMember(MemberDTO memberDto) {
         Member member = memberDto.toEntity();
         List<String> roleNames = new ArrayList<>(); //권한 여러개 부여하기 위한 List
-        roleNames.add("USER"); //모든 유저는 USER 권한을 가짐
+        roleNames.add("USER");                      //모든 유저는 USER 권한을 가짐
         if(memberDto.getName().equals("admin")) {
-            roleNames.add("ADMIN"); //이름이 admin일 경우 USER, ADMIN 두 개의 권한을 가짐
+            roleNames.add("ADMIN");                 //이름이 admin일 경우 USER, ADMIN 두 개의 권한을 가짐
         }
         System.out.println(memberDto.getName());
 
         List<Authority> userRole = authorityRepository.findByNameIn(roleNames);
-
         Optional<Member> userID = memberRepository.findAllByUserID(member.getUserID());
         Optional<Member> profileName = memberRepository.findAllByProfileName(member.getProfileName());
         Optional<Member> cellphone = memberRepository.findAllByCellphone(member.getCellphone());
@@ -40,3 +39,4 @@ public class MemberService {
         memberRepository.save(member);
     }
 }
+
