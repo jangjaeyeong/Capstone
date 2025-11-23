@@ -13,7 +13,7 @@ import java.util.Map;
 @Component
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     ObjectMapper mapper = new ObjectMapper();
-
+     MemberController memberController;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
@@ -24,6 +24,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         responseBody.put("nickname", user.getProfileName());
         response.setContentType("application/json; charset=UTF-8");
         System.out.println(responseBody);
+//        memberController.responseNickname(responseBody);
         mapper.writeValue(response.getOutputStream(), responseBody);
 
 //            js에서 처리는

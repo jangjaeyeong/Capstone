@@ -1,6 +1,7 @@
 package com.capstone.CapstoneProject.Member;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Component
 public class MemberService {
     private final MemberRepository memberRepository;
     private final AuthorityRepository authorityRepository;

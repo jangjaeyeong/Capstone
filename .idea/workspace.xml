@@ -5,11 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcd738b9-f799-4d33-a61c-d43264740445" name="변경" comment="example">
+      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/AiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/AnswerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/requestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/AuthSuccessHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/AuthSuccessHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/MemberController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/MemberService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/resources/main/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/AuthSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/AuthSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/WebConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +156,7 @@
     &quot;project.structure.last.edited&quot;: &quot;SDK&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.19885057&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
     &quot;애플리케이션.CapstoneProjectApplication.executor&quot;: &quot;Run&quot;
   },
@@ -488,6 +509,16 @@
       <workItem from="1763452662855" duration="429000" />
       <workItem from="1763478818590" duration="4747000" />
       <workItem from="1763491869247" duration="787000" />
+      <workItem from="1763534305098" duration="3626000" />
+      <workItem from="1763563865823" duration="4765000" />
+      <workItem from="1763620165489" duration="177000" />
+      <workItem from="1763622552479" duration="2396000" />
+      <workItem from="1763625250436" duration="1901000" />
+      <workItem from="1763740448570" duration="6459000" />
+      <workItem from="1763796063742" duration="7995000" />
+      <workItem from="1763837827802" duration="3743000" />
+      <workItem from="1763879715701" duration="9802000" />
+      <workItem from="1763893818507" duration="360000" />
     </task>
     <task id="LOCAL-00001" summary="signin/signup">
       <option name="closed" value="true" />

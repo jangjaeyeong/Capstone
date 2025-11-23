@@ -1,43 +1,27 @@
 package com.capstone.CapstoneProject;
 
+import com.capstone.CapstoneProject.AiCaller.AiService;
+import com.capstone.CapstoneProject.AiCaller.requestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class MainController {
+    private final AiService aiService;
 
-    @GetMapping("/signIn")
-    String signIn() {
-        return "signin";
-    }
-
-    @GetMapping("/mainPage")
-    String mainPage() {
-        return "mainPage";
-    }
-
-    @GetMapping("/portfolio")
-    String portfolio() {
-        return "portfolio";
-    }
-
-    @GetMapping("/teamproject")
-    String teamProject() {
-        return "teamproject";
-    }
-
-    @GetMapping("/select_option")
-    String selectOption() {
-        return "select_option";
-
-    }
-
-    @PostMapping("/error")
+    @PostMapping("/api/error")
     String error() {
         return "ExceptionHandler";
     }
-}
 
+    @PostMapping("/api/quiz")
+    public ResponseEntity<ResponseEntity<Map>> aiCalling
+            (@RequestBody requestDto reqDto) {
+        System.out.println(reqDto.getAnswers());
+        ResponseEntity<Map> responseAI = aiService.callingAI(reqDto);
+        return ResponseEntity.ok(responseAI);
+    }
+}

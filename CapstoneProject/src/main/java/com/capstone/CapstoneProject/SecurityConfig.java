@@ -41,7 +41,7 @@ public class SecurityConfig {
         //Ngrok OPTION 문제 개선
 
         http.formLogin((form)
-                -> form.loginProcessingUrl("/login")
+                -> form.loginProcessingUrl("/api/login")
                 .usernameParameter("userID")
                 .passwordParameter("userPassword")
                 .successHandler(authSuccessHandler)
