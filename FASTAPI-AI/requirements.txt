@@ -1,0 +1,12 @@
+openai == 2.6.1
+python-dotenv == 1.2.1
+fastapi == 0.121.0
+uvicorn == 0.38.0
+langchain
+langchain_openai
+langchain_experimental
+langchain-community
+pypdf
+faiss-cpu
+tiktoken
+chardet
