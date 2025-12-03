@@ -5,47 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcd738b9-f799-4d33-a61c-d43264740445" name="변경" comment="quiz frontend response">
-      <change afterPath="$PROJECT_DIR$/AI" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/AiService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/FrontResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/QuizResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/Roles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/RolesRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/Tools.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/ToolsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7/storage_v2/_src_/database/neondb.1Hh4wQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7/storage_v2/_src_/database/neondb.1Hh4wQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__11__18___2_53__________.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__11__18__오후_2_53,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/8.10/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/AuthFailureHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/AuthSuccessHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/CustomUser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/Member/MyUserDetailService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/classes/java/main/com/capstone/CapstoneProject/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/AiService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/ChatMessageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/ChatMessageDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/ChatRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/ChatRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/QuizAnswerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/QuizAnswerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AiCaller/QuizRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/QuizRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/AuthFailureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/Login/AuthFailureHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/AuthSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/Login/AuthSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/CustomUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/Login/CustomUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/MyUserDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/Member/Login/MyUserDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI" beforeDir="false" afterPath="$PROJECT_DIR$/AI" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend" beforeDir="false" afterPath="$PROJECT_DIR$/frontend" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
