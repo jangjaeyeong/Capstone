@@ -1,4 +1,4 @@
-package com.capstone.CapstoneProject.Member;
+package com.capstone.CapstoneProject.Member.Login;
 
 import lombok.Getter;
 import lombok.Setter;

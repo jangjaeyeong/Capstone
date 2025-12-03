@@ -32,6 +32,11 @@ application.properties
 application.yml
 application-*.properties
 application-*.yml
+.gradle/
+*.class
+*.log
+.idea/
+.DS_Store
 
 >>>>>>> b3af3c05dba783f4d89bd005c25f389498a8ebe4
 

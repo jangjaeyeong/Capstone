@@ -1,7 +1,7 @@
 package com.capstone.CapstoneProject;
 
-import com.capstone.CapstoneProject.Member.AuthFailureHandler;
-import com.capstone.CapstoneProject.Member.AuthSuccessHandler;
+import com.capstone.CapstoneProject.Member.Login.AuthFailureHandler;
+import com.capstone.CapstoneProject.Member.Login.AuthSuccessHandler;
 import jakarta.servlet.annotation.ServletSecurity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;

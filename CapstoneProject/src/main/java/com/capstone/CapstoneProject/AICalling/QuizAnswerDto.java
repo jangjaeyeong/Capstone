@@ -1,4 +1,4 @@
-package com.capstone.CapstoneProject.AiCaller;
+package com.capstone.CapstoneProject.AICalling;
 
 import lombok.Getter;
 import lombok.Setter;

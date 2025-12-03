@@ -1,5 +1,7 @@
-package com.capstone.CapstoneProject.Member;
+package com.capstone.CapstoneProject.Member.Login;
 
+import com.capstone.CapstoneProject.Member.Member;
+import com.capstone.CapstoneProject.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

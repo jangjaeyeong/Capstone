@@ -1,12 +1,9 @@
 package com.capstone.CapstoneProject;
 
-import com.capstone.CapstoneProject.AiCaller.AiService;
-import com.capstone.CapstoneProject.AiCaller.ChatRequestDTO;
-import com.capstone.CapstoneProject.AiCaller.QuizRequestDto;
+import com.capstone.CapstoneProject.AICalling.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -20,20 +17,23 @@ public class MainController {
         return "ExceptionHandler";
     }
 
-    @PostMapping("/api/quiz")
-    public ResponseEntity<ResponseEntity<Map>> aiCalling
+    @PostMapping("/api/result")
+    public ResponseEntity<FrontResponseDTO> aiCalling
             (@RequestBody QuizRequestDto reqDto) {
         System.out.println(reqDto.getAnswers());
-        ResponseEntity<Map> responseAI = aiService.callingAI(reqDto);
+        FrontResponseDTO responseAI = aiService.quizService(reqDto);
+        System.out.println(responseAI);
         return ResponseEntity.ok(responseAI);
     }
+
     @PostMapping("/api/chat")
-    Map<String, Collection> aiChat(@RequestBody ChatRequestDTO chatReqDto) {
+    Map<String, String> aiChat(@RequestBody ChatRequestDTO chatReqDto) {
+        System.out.println("Message" + chatReqDto.getMessages());
+        System.out.println("Answer: " + chatReqDto.getQuizAnswers());
         if(chatReqDto.getNickname() == null || chatReqDto.getNickname().equals("")) {
             chatReqDto.setNickname("사용자");
         }
-        Map<String, Collection> chat = aiService.chatService(chatReqDto);
-        System.out.println("최종 ai 답변 : " + chat);
+        Map<String, String> chat = aiService.chatService(chatReqDto);
         return chat;
     }
 }

@@ -1,5 +1,6 @@
-package com.capstone.CapstoneProject.Member;
+package com.capstone.CapstoneProject.Member.Login;
 
+import com.capstone.CapstoneProject.Member.MemberController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
