@@ -26,6 +26,7 @@ public class AiService {
         List<Map<String, String>> messages = new ArrayList<>();
         Map<String, Object> body = new HashMap<>();
         StringBuilder responseBuilder = new StringBuilder();
+        List roleList = rolesRepository.findAllRoles();
 
         responseBuilder.append("조건: ");
         for (QuizAnswerDto answerDto : aiDto.getAnswers()) {
@@ -33,20 +34,21 @@ public class AiService {
             responseBuilder.append("A: ").append(answerDto.getValue()).append("\n");
         }
         responseBuilder.append("\" 이 질문과 답변들을 분석해서 가장 적합한 구체적인 직군, " +
-                "기술 스택, 상세 학습 로드맵 5단계 추천해주고" +
-                " 스택 추천 이유도 알려줘. 추천 이유는 반드시 스택 명 : 이유 형식으로 Map으로 해주고" +
-                " " +
+                "해당 직군에 필요한 모든 기술 스택 추천해주는데 언어는 꼭 포함시켜줘." +
+                " 상세 학습 로드맵 5단계 추천해주고 스택 추천 이유도 알려줘. 추천 이유는 반드시" +
+                "스택 명 : 이유 형식으로 Map으로 해주고" +
+                "추천 스택 중 언어는 사용해본 언어 말고 배우고싶거나 관심있는 언어를 최우선으로 분석해줘." +
                 "로드맵도 리스트로 줘 결과는 오직 JSON으로만 출력해주는데 설명 덧붙이지 말고," +
                 "json 형식의 key값은 role, stacks, roadmap, reasons 로 해줘. 직군은 ");
-        for(String roleName : rolesRepository.findAllRoles()) {
-            responseBuilder.append(roleName).append(", ");
-        }
-        responseBuilder.append("에서 가져와주고 스택은 반드시 ");
+        responseBuilder.append(roleList).append("에서 가져와주고 스택은 반드시 ");
         for(String toolName : toolsRepository.findAllTools()) {
             responseBuilder.append(toolName).append(", ");
         }
         responseBuilder.append("에 있는 값으로만 추천해주고, 스택은 서로 연관성 있는거로 추천해줘.")
-                .append("스택명끼리 절대 합치지 마. 예를 들어 Java/Spring boot 같이.");
+              .append("스택명끼리 절대 합치지 마. 예를 들어 Java/Spring boot 같이.")
+              .append("직군은 배우고 싶은 언어를 가장 우선순위로 두고 흥미로운 프로젝트를 " +
+                      "배우고 싶은 언어와 매칭해서 분석해줘.");
+
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         aiResponse.put("content", responseBuilder.toString());
