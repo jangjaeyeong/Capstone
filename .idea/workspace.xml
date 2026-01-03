@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcd738b9-f799-4d33-a61c-d43264740445" name="변경" comment="quiz frontend response">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7/storage_v2/_src_/database/neondb.1Hh4wQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/31ffe917-cf0b-4399-94cd-8d5eb48c80b7/storage_v2/_src_/database/neondb.1Hh4wQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI" beforeDir="false" afterPath="$PROJECT_DIR$/AI" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/AiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/AiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/QuizResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CapstoneProject/src/main/java/com/capstone/CapstoneProject/AICalling/QuizResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend" beforeDir="false" afterPath="$PROJECT_DIR$/frontend" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +126,7 @@
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.CapstoneProjectApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;BackendReCom&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -519,6 +524,17 @@
       <workItem from="1764741649974" duration="7007000" />
       <workItem from="1764749814891" duration="1610000" />
       <workItem from="1764752631646" duration="96000" />
+      <workItem from="1764777876621" duration="643000" />
+      <workItem from="1764864396462" duration="6426000" />
+      <workItem from="1764917202940" duration="4543000" />
+      <workItem from="1764934019231" duration="12381000" />
+      <workItem from="1765041372569" duration="171000" />
+      <workItem from="1765096985261" duration="3239000" />
+      <workItem from="1765183045523" duration="23000" />
+      <workItem from="1765256331244" duration="386000" />
+      <workItem from="1765258703922" duration="6565000" />
+      <workItem from="1765288732539" duration="8663000" />
+      <workItem from="1765327219030" duration="4309000" />
     </task>
     <task id="LOCAL-00001" summary="signin/signup">
       <option name="closed" value="true" />

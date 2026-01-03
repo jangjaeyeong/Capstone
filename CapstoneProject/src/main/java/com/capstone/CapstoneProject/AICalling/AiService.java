@@ -15,13 +15,13 @@ import java.util.*;
 @RequiredArgsConstructor
 public class AiService {
     private final RestTemplate restTemplate;
-    private final String pythonUrl = "http://localhost:8000/ai/chat";
     private final ToolsRepository toolsRepository;
     private final RolesRepository rolesRepository;
     private final HttpHeaders headers = new HttpHeaders();
 
     //설문으로 결과 보기
     public FrontResponseDTO quizService(QuizRequestDto aiDto) {
+        String pythonUrl = "http://localhost:8000/ai/chat";
         Map<String, String> aiResponse = new HashMap<>();
         List<Map<String, String>> messages = new ArrayList<>();
         Map<String, Object> body = new HashMap<>();
@@ -34,12 +34,12 @@ public class AiService {
             responseBuilder.append("A: ").append(answerDto.getValue()).append("\n");
         }
         responseBuilder.append("\" 이 질문과 답변들을 분석해서 가장 적합한 구체적인 직군, " +
-                "해당 직군에 필요한 모든 기술 스택 추천해주는데 언어는 꼭 포함시켜줘." +
-                " 상세 학습 로드맵 5단계 추천해주고 스택 추천 이유도 알려줘. 추천 이유는 반드시" +
-                "스택 명 : 이유 형식으로 Map으로 해주고" +
-                "추천 스택 중 언어는 사용해본 언어 말고 배우고싶거나 관심있는 언어를 최우선으로 분석해줘." +
-                "로드맵도 리스트로 줘 결과는 오직 JSON으로만 출력해주는데 설명 덧붙이지 말고," +
-                "json 형식의 key값은 role, stacks, roadmap, reasons 로 해줘. 직군은 ");
+                "해당 직군에 필요한 기술 스택 6개 추천해주는데 언어는 꼭 포함시켜줘." +
+                " 상세 학습 로드맵 5단계 추천해주는데 존댓말로 자세하게 알려주고" +
+                " 스택 추천 이유도 알려줘. 추천 이유는 반드시 스택 명 : 이유 형식으로 Map으로 해주고" +
+                " 추천 스택 중 언어는 사용해본 언어 말고 배우고싶거나 관심있는 언어를 최우선으로 분석해줘." +
+                " 로드맵도 리스트로 줘 결과는 오직 JSON으로만 출력해주는데 설명 덧붙이지 말고," +
+                " json 형식의 key값은 role, stacks, roadmap, reasons 로 해줘. 직군은 ");
         responseBuilder.append(roleList).append("에서 가져와주고 스택은 반드시 ");
         for(String toolName : toolsRepository.findAllTools()) {
             responseBuilder.append(toolName).append(", ");
@@ -60,17 +60,19 @@ public class AiService {
         System.out.println("사용자 답변: " + body);
         ResponseEntity<QuizResponseDTO> res = restTemplate.postForEntity(pythonUrl, entity, QuizResponseDTO.class);
         System.out.println("AI 답변: " + res.getBody());
+
+        res.getBody().getStacks().removeIf(stackName ->
+                toolsRepository.findByToolName(stackName).isEmpty());
         FrontResponseDTO frontResponse = FrontResponseQuiz(res.getBody());
         return frontResponse;
     }
 
     //채팅으로 결과보기
     public Map<String, String > chatService(ChatRequestDTO chatReqDto) {
+        String pythonUrl = "http://localhost:8000/rag/chat";
         Map<String, String> aiResponse = new HashMap<>();
-        List<Map<String, String>> messages = new ArrayList<>();
-        Map<String, Object> body = new HashMap<>();
         StringBuilder responseBuilder = new StringBuilder();
-        HttpEntity<Map<String, Object>> entity;
+        HttpEntity<Map<String, String>> entity;
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         responseBuilder.append("조건: ");
@@ -79,7 +81,7 @@ public class AiService {
             responseBuilder.append("A: ").append(dto.getValue()).append("\n");
         }
         responseBuilder.append("이 질문과 답변을 분석해서 추천하는 직군과 스택, 로드맵 알려줘." +
-                "스택이랑 로드맵 추천 이유도 같이 알려줘. 알려줄 때 이름 빼고 내용만 줘. assistant: 같은 거 빼");
+                "스택이랑 로드맵 추천 이유도 같이 알려줘.");
         List<ChatMessageDTO> messagesDto = chatReqDto.getMessages();
 
         for (int i = 0; i < chatReqDto.getMessages().size(); i ++) {
@@ -89,13 +91,11 @@ public class AiService {
                 responseBuilder.append(dto.getContent()).append("\n");
             }
         }
-            aiResponse.put("content", responseBuilder.toString());
-            messages.add(aiResponse);
-            body.put("messages", messages);
-            entity = new HttpEntity<>(body, headers);
+            aiResponse.put("question", responseBuilder.toString());
+            entity = new HttpEntity<>(aiResponse, headers);
             ResponseEntity<Map> res =
                     restTemplate.postForEntity(pythonUrl, entity, Map.class);
-        System.out.println("사용자 조건: "+ body);
+        System.out.println("사용자 조건: "+ aiResponse.values());
         System.out.println("AI Chat 답변: " + res.getBody().toString());
         String value = String.valueOf(res.getBody().values().iterator().next());
         value = value.replace("assistant: ", "");
