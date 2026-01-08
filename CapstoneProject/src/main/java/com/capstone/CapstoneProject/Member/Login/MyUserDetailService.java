@@ -28,11 +28,7 @@ public class MyUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("일치하는 아이디가 없습니다.");
         }
         Member user = member.get();
-        List<GrantedAuthority> authorities = user.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
-                .collect(Collectors.toList());
-
-        CustomUser customUser = new CustomUser(user.getUserID(), user.getPassword(), authorities);
+        CustomUser customUser = new CustomUser(user);
         customUser.setProfileName(user.getProfileName());
         return customUser;
 
