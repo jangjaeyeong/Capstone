@@ -1,25 +1,33 @@
 package com.capstone.CapstoneProject.Community;
 
-import com.capstone.CapstoneProject.Community.TeamProject.ProjectDetailDTO;
-import com.capstone.CapstoneProject.Community.TeamProject.ProjectEditDTO;
-import com.capstone.CapstoneProject.Community.TeamProject.ProjectCreateDTO;
-import com.capstone.CapstoneProject.Community.TeamProject.ProjectService;
+import com.capstone.CapstoneProject.Community.TeamProject.*;
 import com.capstone.CapstoneProject.Member.Login.CustomUser;
 import com.capstone.CapstoneProject.Member.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequiredArgsConstructor
 @Component
 public class CommunityController {
     private final ProjectService projectService;
 
+
+    @GetMapping("api/listProject/{n}")
+    ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page", defaultValue = "1")int page) {
+        Page<ProjectListDTO> paging = projectService.getList(page);
+
+        return ResponseEntity.ok(paging);
+
+    }
     @PostMapping("api/CreateProject")
     ResponseEntity<String> createTeamProject(@Valid @RequestBody ProjectCreateDTO projectCreateDTO,
                                              @AuthenticationPrincipal CustomUser customUser) {
@@ -42,7 +50,6 @@ public class CommunityController {
     ResponseEntity<String>modifiedProject(@RequestBody ProjectEditDTO editDTO,
                                           @PathVariable int id) {
         projectService.editProject(editDTO, id);
-
         return ResponseEntity.ok().body("수정 완료");
     }
 

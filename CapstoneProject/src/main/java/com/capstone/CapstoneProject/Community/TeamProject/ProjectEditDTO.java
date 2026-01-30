@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProjectEditDTO {
     private String field;
-    private String location;
     private Integer maxPersonnel;
     private String title;
     private String content;

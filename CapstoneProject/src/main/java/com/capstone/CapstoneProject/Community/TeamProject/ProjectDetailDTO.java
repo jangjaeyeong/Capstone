@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 public class ProjectDetailDTO {
     private int id;
     private String field;
-    private String location;
     private int maxPersonnel;
     private String title;
     private String content;
@@ -21,7 +20,6 @@ public class ProjectDetailDTO {
     public ProjectDetailDTO(TeamProject teamProject) {
         this.id = teamProject.getId();
         this.field = teamProject.getField();
-        this.location = teamProject.getLocation();
         this.maxPersonnel = teamProject.getMaxPersonnel();
         this.title = teamProject.getTitle();
         this.content = teamProject.getContent();
