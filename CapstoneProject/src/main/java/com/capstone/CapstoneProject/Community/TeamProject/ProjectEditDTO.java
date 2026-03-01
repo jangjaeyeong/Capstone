@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProjectEditDTO {
-    private String field;
+    private String category;
     private Integer maxPersonnel;
     private String title;
     private String content;

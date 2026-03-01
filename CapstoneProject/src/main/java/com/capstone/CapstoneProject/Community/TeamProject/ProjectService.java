@@ -1,6 +1,8 @@
 package com.capstone.CapstoneProject.Community.TeamProject;
 
+import com.capstone.CapstoneProject.Member.Login.CustomUser;
 import com.capstone.CapstoneProject.Member.Member;
+import com.capstone.CapstoneProject.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,14 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ProjectService {
     private final TeamProjectRepository teamProjectRepository;
+    private final MemberRepository memberRepository;
+    private final ProjectMemberRepository projectMemberRepository;
 
+    //전체 리스트
      public Page<ProjectListDTO> getList(int page) {
          int realPage = (page <= 0) ? 0 : page - 1;
          Pageable pageable = PageRequest.of(realPage+1, 5,
@@ -25,7 +29,7 @@ public class ProjectService {
          Page<TeamProject> paging = teamProjectRepository.findAll(pageable);
 
          Page<ProjectListDTO> listDto = paging.map(project -> new ProjectListDTO(
-                 project.getField(),
+                 project.getCategory(),
                  project.getMaxPersonnel(),
                  project.getTitle(),
                  project.getState(),
@@ -35,11 +39,19 @@ public class ProjectService {
          ));
          return listDto;
      }
+     //프로젝트 생성
     public void saveProject(ProjectCreateDTO projectCreateDTO, Member writer) {
         TeamProject teamProject = projectCreateDTO.toEntity(writer);
         teamProjectRepository.save(teamProject);
 
+        ProjectMember projectMember = new ProjectMember();
+        projectMember.setUser(writer);
+        projectMember.setProject(teamProject);
+        projectMember.setRole("팀장");
+        projectMemberRepository.save(projectMember);
     }
+
+    //프로젝트 상세 페이지
     @Transactional(readOnly = true)
     public ProjectDetailDTO detailProject(@PathVariable int id) { //고유 ID
         TeamProject tp =  teamProjectRepository.findById(id)
@@ -48,9 +60,41 @@ public class ProjectService {
         return new ProjectDetailDTO(tp);
     }
 
-    public void editProject(ProjectEditDTO editDTO, int id) {
+    // 프로젝트 수정
+    public void editProject(ProjectEditDTO editDTO, int id, String loginUser) {
         TeamProject tp = teamProjectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("삭제된 게시물입니다."));
-        tp.EditProject(editDTO);
+                .orElseThrow(() -> new IllegalArgumentException("삭제된 게시글입니다."));
+        if(tp.getWriter().getUserID().equals(loginUser)) {
+            tp.EditProject(editDTO);
+        }else {
+            new IllegalArgumentException("작성자만 게시글을 수정할 수 있습니다.");
+        }
     }
-}
+
+    //프로젝트 삭제
+    public void deleteProject(int projectId, String loginUser) {
+         TeamProject tp = teamProjectRepository.findById(projectId)
+                 .orElseThrow(() -> new IllegalArgumentException("없는 게시글입니다."));
+         if(tp.getWriter().getUserID().equals(loginUser)) {
+             teamProjectRepository.delete(tp);
+         }else {
+             new IllegalArgumentException("작성자만 게시글을 삭제할 수 있습니다.");
+         }
+    }
+
+    public void joinedProject(int projectId, Member loginUser) {
+        TeamProject tp = teamProjectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("없는 게시글입니다."));
+        boolean alreadyJoined = projectMemberRepository
+                .existsByUserAndProject(loginUser, tp);
+        if(alreadyJoined) {
+            throw new IllegalArgumentException("이미 참가한 프로젝트입니다!!");
+        }
+            ProjectMember projectMember = new ProjectMember();
+            projectMember.setUser(loginUser);
+            projectMember.setProject(tp);
+            projectMember.setRole("팀원");
+            projectMemberRepository.save(projectMember);
+
+        }
+    }

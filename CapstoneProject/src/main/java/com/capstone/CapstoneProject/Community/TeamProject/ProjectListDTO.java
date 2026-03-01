@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectListDTO {
-    private String field;
+    private String category;
     private int maxPersonnel;
     private String title;
     private String state;
@@ -18,9 +18,9 @@ public class ProjectListDTO {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public ProjectListDTO(String field, int maxPersonnel, String title, String state,
+    public ProjectListDTO(String category, int maxPersonnel, String title, String state,
                           String writer, LocalDateTime createdDate, LocalDateTime ModifiedDate) {
-        this.field = field;
+        this.category = category;
         this.maxPersonnel = maxPersonnel;
         this.title = title;
         this.state = state;

@@ -9,8 +9,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,7 +21,7 @@ public class TeamProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;         //고유 ID
-    private String field;   //분야
+    private String category;   //분야
     private int maxPersonnel;   //최대 인원
     private String title;       //제목
     private String content;     //내용
@@ -41,9 +39,9 @@ public class TeamProject {
     private LocalDateTime modifiedDate;     //수정 날짜
 
     @Builder
-    public TeamProject (String field, int maxPersonnel, String title,
-                    String content, Member writer) {
-        this.field = field;
+    public TeamProject (String category, int maxPersonnel, String title,
+                        String content, Member writer) {
+        this.category = category;
         this.maxPersonnel = maxPersonnel;
         this.title = title;
         this.content = content;
@@ -60,8 +58,8 @@ public class TeamProject {
        if(editDTO.getMaxPersonnel() != null) {
             this.maxPersonnel = editDTO.getMaxPersonnel();
        }
-       if(editDTO.getField() != null && !editDTO.getField().equals("")) {
-           this.field = editDTO.getField();
+       if(editDTO.getCategory() != null && !editDTO.getCategory().equals("")) {
+           this.category = editDTO.getCategory();
        }
 
     }

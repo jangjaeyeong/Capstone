@@ -6,13 +6,12 @@ import com.capstone.CapstoneProject.Member.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,9 +20,10 @@ public class CommunityController {
     private final ProjectService projectService;
 
 
-    @GetMapping("api/listProject/{n}")
-    ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page", defaultValue = "1")int page) {
-        Page<ProjectListDTO> paging = projectService.getList(page);
+    @GetMapping("api/listProject")
+    ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page",
+            defaultValue = "1")int pageNumber) {
+        Page<ProjectListDTO> paging = projectService.getList(pageNumber);
 
         return ResponseEntity.ok(paging);
 
@@ -48,10 +48,30 @@ public class CommunityController {
 
     @PatchMapping("api/editProject/{id}")
     ResponseEntity<String>modifiedProject(@RequestBody ProjectEditDTO editDTO,
-                                          @PathVariable int id) {
-        projectService.editProject(editDTO, id);
+                                          @PathVariable int id,
+                                          @AuthenticationPrincipal CustomUser loginUser) {
+        if(loginUser == null) {
+            new IllegalArgumentException("로그인이 필요합니다.");
+        }
+        projectService.editProject(editDTO, id, loginUser.getUsername());
         return ResponseEntity.ok().body("수정 완료");
     }
-
-
+    @DeleteMapping("api/teamproject/{projectId}")
+    ResponseEntity<String> deleteProject(@PathVariable int projectId,
+                                         @AuthenticationPrincipal CustomUser loginUser) {
+        if(loginUser == null) {
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인이 필요합니다.");
+        }
+        projectService.deleteProject(projectId, loginUser.getUsername());
+        return ResponseEntity.ok("게시글이 삭제되었습니다.");
+    }
+    @PostMapping("api/projects/{id}/join")
+    public ResponseEntity<String> joinProject(@PathVariable int id,
+                                              @AuthenticationPrincipal CustomUser user) {
+        if(user == null) {
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인이 필요합니다.");
+        }
+        projectService.joinedProject(id, user.getMember());
+        return ResponseEntity.ok("참가 신청이 완료되었습니다.");
+    }
 }

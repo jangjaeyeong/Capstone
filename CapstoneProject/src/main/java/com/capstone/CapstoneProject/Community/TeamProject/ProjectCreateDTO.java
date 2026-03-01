@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProjectCreateDTO {
     @NotBlank(message = "분야를 입력해주세요")
-    private String field;
+    private String category;
     @NotNull(message = "최대 인원을 입력해주세요")
     @Min(value = 1, message = "인원은 최소 1명 이상이어야 합니다")
     private int maxPersonnel;
@@ -24,7 +24,7 @@ public class ProjectCreateDTO {
 
     public TeamProject toEntity(Member writer) {
         return TeamProject.builder()
-                .field(this.field)
+                .category(this.category)
                 .maxPersonnel(this.maxPersonnel)
                 .title(this.title)
                 .content(this.content)

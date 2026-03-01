@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ProjectDetailDTO {
     private int id;
-    private String field;
+    private String category;
     private int maxPersonnel;
     private String title;
     private String content;
@@ -19,7 +19,7 @@ public class ProjectDetailDTO {
 
     public ProjectDetailDTO(TeamProject teamProject) {
         this.id = teamProject.getId();
-        this.field = teamProject.getField();
+        this.category = teamProject.getCategory();
         this.maxPersonnel = teamProject.getMaxPersonnel();
         this.title = teamProject.getTitle();
         this.content = teamProject.getContent();
