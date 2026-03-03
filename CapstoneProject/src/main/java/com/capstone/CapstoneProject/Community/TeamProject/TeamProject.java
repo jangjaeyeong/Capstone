@@ -20,7 +20,7 @@ public class TeamProject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;         //고유 ID
+    private Long id;         //고유 ID
     private String category;   //분야
     private int maxPersonnel;   //최대 인원
     private String title;       //제목

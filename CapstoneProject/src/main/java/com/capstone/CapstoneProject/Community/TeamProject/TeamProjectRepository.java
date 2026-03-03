@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface TeamProjectRepository extends JpaRepository<TeamProject, Integer> {
     Optional<TeamProject> findById(int id);
     Page<TeamProject> findAll(Pageable pageable);
-
 }

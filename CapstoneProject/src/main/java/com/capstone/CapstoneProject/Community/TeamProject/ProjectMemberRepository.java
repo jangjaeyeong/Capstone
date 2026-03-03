@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectMemberRepository extends JpaRepository<ProjectMember, Long> {
     boolean existsByUserAndProject(Member user, TeamProject teamProject);
+    long countByProject(Long project);
 }

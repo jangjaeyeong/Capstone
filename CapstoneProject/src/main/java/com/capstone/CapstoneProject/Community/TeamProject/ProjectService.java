@@ -90,11 +90,20 @@ public class ProjectService {
         if(alreadyJoined) {
             throw new IllegalArgumentException("이미 참가한 프로젝트입니다!!");
         }
-            ProjectMember projectMember = new ProjectMember();
+        long totalRaws = projectMemberRepository.countByProject(tp.getId());
+        TeamProject teamProject = new TeamProject();
+        ProjectMember projectMember = new ProjectMember();
+        if(totalRaws > teamProject.getMaxPersonnel()) {
             projectMember.setUser(loginUser);
             projectMember.setProject(tp);
             projectMember.setRole("팀원");
             projectMemberRepository.save(projectMember);
+        }else{
+            new IllegalArgumentException("모집이 마감되었습니다");
+        }
+
+
+
 
         }
     }

@@ -19,7 +19,7 @@ import java.util.Set;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;//번호
+    private Long id;//번호
     private String name; //이름
     @Column(name = "userID", unique = true)
     private String userID; //ID

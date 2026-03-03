@@ -14,6 +14,6 @@ public class Authority { //권한 엔터티
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
 }
