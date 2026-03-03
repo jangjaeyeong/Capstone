@@ -25,7 +25,7 @@ public class ProjectCreateDTO {
     public TeamProject toEntity(Member writer) {
         return TeamProject.builder()
                 .category(this.category)
-                .maxPersonnel(this.maxPersonnel)
+                .userLimit(this.maxPersonnel)
                 .title(this.title)
                 .content(this.content)
                 .writer(writer)

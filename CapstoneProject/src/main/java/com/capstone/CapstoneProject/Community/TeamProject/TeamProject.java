@@ -22,7 +22,7 @@ public class TeamProject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;         //고유 ID
     private String category;   //분야
-    private int maxPersonnel;   //최대 인원
+    private int userLimit;   //최대 인원
     private String title;       //제목
     private String content;     //내용
     private String state = "모집중";   //현재 상태(모집중, 마감)
@@ -39,10 +39,10 @@ public class TeamProject {
     private LocalDateTime modifiedDate;     //수정 날짜
 
     @Builder
-    public TeamProject (String category, int maxPersonnel, String title,
+    public TeamProject (String category, int userLimit, String title,
                         String content, Member writer) {
         this.category = category;
-        this.maxPersonnel = maxPersonnel;
+        this.userLimit = userLimit;
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -55,8 +55,8 @@ public class TeamProject {
             this.content = editDTO.getContent();
         }
 
-       if(editDTO.getMaxPersonnel() != null) {
-            this.maxPersonnel = editDTO.getMaxPersonnel();
+       if(editDTO.getUserLimit() != null) {
+            this.userLimit = editDTO.getUserLimit  ();
        }
        if(editDTO.getCategory() != null && !editDTO.getCategory().equals("")) {
            this.category = editDTO.getCategory();

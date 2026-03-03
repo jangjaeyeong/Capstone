@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ProjectDetailDTO {
-    private int id;
+    private Long id;
     private String category;
-    private int maxPersonnel;
+    private int userLimit;
     private String title;
     private String content;
     private String state;
@@ -20,7 +20,7 @@ public class ProjectDetailDTO {
     public ProjectDetailDTO(TeamProject teamProject) {
         this.id = teamProject.getId();
         this.category = teamProject.getCategory();
-        this.maxPersonnel = teamProject.getMaxPersonnel();
+        this.userLimit = teamProject.getUserLimit();
         this.title = teamProject.getTitle();
         this.content = teamProject.getContent();
         this.state = teamProject.getState();

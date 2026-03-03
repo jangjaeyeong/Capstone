@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProjectListDTO {
     private String category;
-    private int maxPersonnel;
+    private int userLimit;
     private String title;
     private String state;
     private int viewCount;
@@ -18,10 +18,10 @@ public class ProjectListDTO {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public ProjectListDTO(String category, int maxPersonnel, String title, String state,
+    public ProjectListDTO(String category, int userLimit, String title, String state,
                           String writer, LocalDateTime createdDate, LocalDateTime ModifiedDate) {
         this.category = category;
-        this.maxPersonnel = maxPersonnel;
+        this.userLimit = userLimit;
         this.title = title;
         this.state = state;
         this.writer = writer;

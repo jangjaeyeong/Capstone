@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProjectEditDTO {
     private String category;
-    private Integer maxPersonnel;
+    private Integer userLimit;
     private String title;
     private String content;
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommunityController {
     private final ProjectService projectService;
 
-
+    //팀 프로젝트 리스트 API
     @GetMapping("api/listProject")
     ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page",
             defaultValue = "1")int pageNumber) {
@@ -28,24 +28,27 @@ public class CommunityController {
         return ResponseEntity.ok(paging);
 
     }
+    //팀 프로젝트 생성 API
     @PostMapping("api/CreateProject")
     ResponseEntity<String> createTeamProject(@Valid @RequestBody ProjectCreateDTO projectCreateDTO,
-                                             @AuthenticationPrincipal CustomUser customUser) {
-        if(customUser == null) {
+                                             @AuthenticationPrincipal CustomUser loginUser) {
+        if(loginUser == null) {
             throw new RuntimeException("회원 정보가 없습니다");
         }
-        Member writer = customUser.getMember();
+        Member writer = loginUser.getMember();
         projectService.saveProject(projectCreateDTO, writer);
 
         return ResponseEntity.ok().body("등록 완료!");
     }
 
+    //팀프로젝트 상세 페이지 API
     @GetMapping("api/projects/{id}")
     ResponseEntity<ProjectDetailDTO> details(@PathVariable int id) {
         ProjectDetailDTO detail = projectService.detailProject(id);
         return ResponseEntity.ok().body(detail);
     }
 
+    //팀 프로젝트 수정 API
     @PatchMapping("api/editProject/{id}")
     ResponseEntity<String>modifiedProject(@RequestBody ProjectEditDTO editDTO,
                                           @PathVariable int id,
@@ -56,6 +59,8 @@ public class CommunityController {
         projectService.editProject(editDTO, id, loginUser.getUsername());
         return ResponseEntity.ok().body("수정 완료");
     }
+
+    //팀 프로젝트 삭제 API
     @DeleteMapping("api/teamproject/{projectId}")
     ResponseEntity<String> deleteProject(@PathVariable int projectId,
                                          @AuthenticationPrincipal CustomUser loginUser) {
@@ -65,6 +70,7 @@ public class CommunityController {
         projectService.deleteProject(projectId, loginUser.getUsername());
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
+    //팀 프로젝트 참가 API
     @PostMapping("api/projects/{id}/join")
     public ResponseEntity<String> joinProject(@PathVariable int id,
                                               @AuthenticationPrincipal CustomUser user) {

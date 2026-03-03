@@ -18,19 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequiredArgsConstructor
 public class ProjectService {
     private final TeamProjectRepository teamProjectRepository;
-    private final MemberRepository memberRepository;
     private final ProjectMemberRepository projectMemberRepository;
 
     //전체 리스트
      public Page<ProjectListDTO> getList(int page) {
          int realPage = (page <= 0) ? 0 : page - 1;
-         Pageable pageable = PageRequest.of(realPage+1, 5,
-                 Sort.Direction.DESC, "modifiedDate");
+         Pageable pageable = PageRequest.of(realPage, 5,
+                 Sort.Direction.DESC, "createdDate");
          Page<TeamProject> paging = teamProjectRepository.findAll(pageable);
 
          Page<ProjectListDTO> listDto = paging.map(project -> new ProjectListDTO(
                  project.getCategory(),
-                 project.getMaxPersonnel(),
+                 project.getUserLimit(),
                  project.getTitle(),
                  project.getState(),
                  project.getWriter().getProfileName(),
@@ -90,10 +89,11 @@ public class ProjectService {
         if(alreadyJoined) {
             throw new IllegalArgumentException("이미 참가한 프로젝트입니다!!");
         }
-        long totalRaws = projectMemberRepository.countByProject(tp.getId());
+        long totalRaws = projectMemberRepository.countByProject_id(tp.getId());
         TeamProject teamProject = new TeamProject();
         ProjectMember projectMember = new ProjectMember();
-        if(totalRaws > teamProject.getMaxPersonnel()) {
+
+        if(totalRaws > teamProject.getUserLimit()) {
             projectMember.setUser(loginUser);
             projectMember.setProject(tp);
             projectMember.setRole("팀원");
