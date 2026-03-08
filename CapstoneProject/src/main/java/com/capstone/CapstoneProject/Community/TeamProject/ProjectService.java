@@ -1,8 +1,6 @@
 package com.capstone.CapstoneProject.Community.TeamProject;
 
-import com.capstone.CapstoneProject.Member.Login.CustomUser;
 import com.capstone.CapstoneProject.Member.Member;
-import com.capstone.CapstoneProject.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,13 +19,22 @@ public class ProjectService {
     private final ProjectMemberRepository projectMemberRepository;
 
     //전체 리스트
-     public Page<ProjectListDTO> getList(int page) {
+     public Page<ProjectListDTO> getList(int page, String keyword) {
          int realPage = (page <= 0) ? 0 : page - 1;
          Pageable pageable = PageRequest.of(realPage, 5,
                  Sort.Direction.DESC, "createdDate");
-         Page<TeamProject> paging = teamProjectRepository.findAll(pageable);
+         Page<TeamProject> paging;
+         if(keyword == null || keyword.isBlank()) {
+             paging = teamProjectRepository.findAll(pageable);
+         }else if(keyword.length() >= 2){
+              pageable = PageRequest.of(realPage, 5);
+             keyword = keyword.trim().replace(" ", "%");
+             paging = teamProjectRepository.fullTextSearch(keyword, pageable);
+         }else{
+             paging = teamProjectRepository.findByTitleContaining(keyword, pageable);
+         }
 
-         Page<ProjectListDTO> listDto = paging.map(project -> new ProjectListDTO(
+         return paging.map(project -> new ProjectListDTO(
                  project.getCategory(),
                  project.getUserLimit(),
                  project.getTitle(),
@@ -36,17 +43,17 @@ public class ProjectService {
                  project.getCreatedDate(),
                  project.getModifiedDate()
          ));
-         return listDto;
      }
      //프로젝트 생성
     public void saveProject(ProjectCreateDTO projectCreateDTO, Member writer) {
         TeamProject teamProject = projectCreateDTO.toEntity(writer);
         teamProjectRepository.save(teamProject);
 
-        ProjectMember projectMember = new ProjectMember();
-        projectMember.setUser(writer);
-        projectMember.setProject(teamProject);
-        projectMember.setRole("팀장");
+        ProjectMember projectMember = ProjectMember.builder()
+                        .user(writer)
+                        .project(teamProject)
+                        .role("팀장")
+                        .build();
         projectMemberRepository.save(projectMember);
     }
 
@@ -66,7 +73,7 @@ public class ProjectService {
         if(tp.getWriter().getUserID().equals(loginUser)) {
             tp.EditProject(editDTO);
         }else {
-            new IllegalArgumentException("작성자만 게시글을 수정할 수 있습니다.");
+            throw new IllegalArgumentException("작성자만 게시글을 수정할 수 있습니다.");
         }
     }
 
@@ -77,7 +84,7 @@ public class ProjectService {
          if(tp.getWriter().getUserID().equals(loginUser)) {
              teamProjectRepository.delete(tp);
          }else {
-             new IllegalArgumentException("작성자만 게시글을 삭제할 수 있습니다.");
+             throw new IllegalArgumentException("작성자만 게시글을 삭제할 수 있습니다.");
          }
     }
 
@@ -91,19 +98,16 @@ public class ProjectService {
         }
         long totalRaws = projectMemberRepository.countByProject_id(tp.getId());
         TeamProject teamProject = new TeamProject();
-        ProjectMember projectMember = new ProjectMember();
 
         if(totalRaws > teamProject.getUserLimit()) {
-            projectMember.setUser(loginUser);
-            projectMember.setProject(tp);
-            projectMember.setRole("팀원");
+            ProjectMember projectMember = ProjectMember.builder()
+                    .user(loginUser)
+                    .project(tp)
+                    .role("팀원")
+                    .build();
             projectMemberRepository.save(projectMember);
         }else{
-            new IllegalArgumentException("모집이 마감되었습니다");
+            throw new IllegalArgumentException("모집이 마감되었습니다");
         }
-
-
-
-
         }
     }

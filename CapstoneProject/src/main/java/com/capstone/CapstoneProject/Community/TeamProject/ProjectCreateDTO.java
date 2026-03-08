@@ -16,7 +16,7 @@ public class ProjectCreateDTO {
     private String category;
     @NotNull(message = "최대 인원을 입력해주세요")
     @Min(value = 1, message = "인원은 최소 1명 이상이어야 합니다")
-    private int maxPersonnel;
+    private int userLimit;
     @NotBlank(message = "제목을 입력해주세요")
     private String title;
     @NotBlank(message = "내용을 입력해주세요")
@@ -25,7 +25,7 @@ public class ProjectCreateDTO {
     public TeamProject toEntity(Member writer) {
         return TeamProject.builder()
                 .category(this.category)
-                .userLimit(this.maxPersonnel)
+                .userLimit(this.userLimit)
                 .title(this.title)
                 .content(this.content)
                 .writer(writer)

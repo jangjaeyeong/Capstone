@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +21,10 @@ public class CommunityController {
     //팀 프로젝트 리스트 API
     @GetMapping("api/listProject")
     ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page",
-            defaultValue = "1")int pageNumber) {
-        Page<ProjectListDTO> paging = projectService.getList(pageNumber);
+            defaultValue = "1")int pageNumber, @RequestParam
+            (value = "keyword", required = false)String keyword) {
+        if(keyword!= null) keyword = keyword.trim();
+        Page<ProjectListDTO> paging = projectService.getList(pageNumber, keyword);
 
         return ResponseEntity.ok(paging);
 
@@ -54,7 +55,7 @@ public class CommunityController {
                                           @PathVariable int id,
                                           @AuthenticationPrincipal CustomUser loginUser) {
         if(loginUser == null) {
-            new IllegalArgumentException("로그인이 필요합니다.");
+            throw new IllegalArgumentException("로그인이 필요합니다.");
         }
         projectService.editProject(editDTO, id, loginUser.getUsername());
         return ResponseEntity.ok().body("수정 완료");

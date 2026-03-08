@@ -2,17 +2,15 @@ package com.capstone.CapstoneProject.Community.TeamProject;
 
 import com.capstone.CapstoneProject.Member.Member;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class ProjectMember {
@@ -32,6 +30,7 @@ public class ProjectMember {
     @Column(updatable = false)
     private LocalDateTime joinDate;
 
+    @Builder
     public ProjectMember(Member user, TeamProject project, String role) {
         this.user = user;
         this.project = project;
