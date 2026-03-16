@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +23,9 @@ public class ProjectCreateDTO {
     private String title;
     @NotBlank(message = "내용을 입력해주세요")
     private String content;
+    private List<String> tags;
+    private String myRole;
+    private List<String> needRoles;
 
     public TeamProject toEntity(Member writer) {
         return TeamProject.builder()

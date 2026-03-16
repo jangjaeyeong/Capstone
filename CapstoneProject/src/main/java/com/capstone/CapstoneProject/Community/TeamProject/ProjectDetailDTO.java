@@ -3,6 +3,7 @@ package com.capstone.CapstoneProject.Community.TeamProject;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class ProjectDetailDTO {
@@ -16,8 +17,11 @@ public class ProjectDetailDTO {
     private String writer;
     private LocalDateTime created;
     private LocalDateTime modified;
+    private List<String> tags;
+    private List<String> needRoles;
 
-    public ProjectDetailDTO(TeamProject teamProject) {
+    public ProjectDetailDTO(TeamProject teamProject, List<String> tags,
+                            List<String> needRoles) {
         this.id = teamProject.getId();
         this.category = teamProject.getCategory();
         this.userLimit = teamProject.getUserLimit();
@@ -28,6 +32,8 @@ public class ProjectDetailDTO {
 
         this.created = teamProject.getCreatedDate();
         this.modified = teamProject.getModifiedDate();
+        this.tags = tags;
+        this.needRoles = needRoles;
         if(teamProject.getWriter().getProfileName() != null) {
             this.writer = teamProject.getWriter().getProfileName();
         }else {

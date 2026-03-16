@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,7 +41,7 @@ public class TeamProject {
 
     @Builder
     public TeamProject (String category, int userLimit, String title,
-                        String content, Member writer) {
+                        String content, Member writer, List<String> tag) {
         this.category = category;
         this.userLimit = userLimit;
         this.title = title;
@@ -56,7 +57,7 @@ public class TeamProject {
         }
 
        if(editDTO.getUserLimit() != null) {
-            this.userLimit = editDTO.getUserLimit  ();
+            this.userLimit = editDTO.getUserLimit();
        }
        if(editDTO.getCategory() != null && !editDTO.getCategory().equals("")) {
            this.category = editDTO.getCategory();

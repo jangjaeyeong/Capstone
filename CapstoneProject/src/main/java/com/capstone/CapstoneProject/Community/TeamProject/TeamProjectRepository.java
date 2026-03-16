@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface TeamProjectRepository extends JpaRepository<TeamProject, Long> {
-    Optional<TeamProject> findById(int id);
+    Optional<TeamProject> findById(Long id);
     Page<TeamProject> findAll(Pageable pageable);
     @Query(value = "select * from team_project where  title LIKE CONCAT('%', :keyword, '%')" +
             " order by created_date desc",

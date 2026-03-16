@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +19,12 @@ public class ProjectListDTO {
     private String writer;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private List<String> tag;
+    private List<String> needRoles;
 
     public ProjectListDTO(String category, int userLimit, String title, String state,
-                          String writer, LocalDateTime createdDate, LocalDateTime ModifiedDate) {
+                          String writer, LocalDateTime createdDate, LocalDateTime ModifiedDate,
+                          List<String> tag, List<String> needRoles) {
         this.category = category;
         this.userLimit = userLimit;
         this.title = title;
@@ -27,5 +32,7 @@ public class ProjectListDTO {
         this.writer = writer;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+        this.tag = tag;
+        this.needRoles = needRoles;
     }
 }

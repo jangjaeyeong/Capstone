@@ -27,7 +27,6 @@ public class CommunityController {
         Page<ProjectListDTO> paging = projectService.getList(pageNumber, keyword);
 
         return ResponseEntity.ok(paging);
-
     }
     //팀 프로젝트 생성 API
     @PostMapping("api/CreateProject")
@@ -44,7 +43,7 @@ public class CommunityController {
 
     //팀프로젝트 상세 페이지 API
     @GetMapping("api/projects/{id}")
-    ResponseEntity<ProjectDetailDTO> details(@PathVariable int id) {
+    ResponseEntity<ProjectDetailDTO> details(@PathVariable Long id) {
         ProjectDetailDTO detail = projectService.detailProject(id);
         return ResponseEntity.ok().body(detail);
     }
@@ -52,7 +51,7 @@ public class CommunityController {
     //팀 프로젝트 수정 API
     @PatchMapping("api/editProject/{id}")
     ResponseEntity<String>modifiedProject(@RequestBody ProjectEditDTO editDTO,
-                                          @PathVariable int id,
+                                          @PathVariable Long id,
                                           @AuthenticationPrincipal CustomUser loginUser) {
         if(loginUser == null) {
             throw new IllegalArgumentException("로그인이 필요합니다.");
@@ -63,7 +62,7 @@ public class CommunityController {
 
     //팀 프로젝트 삭제 API
     @DeleteMapping("api/teamproject/{projectId}")
-    ResponseEntity<String> deleteProject(@PathVariable int projectId,
+    ResponseEntity<String> deleteProject(@PathVariable Long projectId,
                                          @AuthenticationPrincipal CustomUser loginUser) {
         if(loginUser == null) {
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인이 필요합니다.");
@@ -73,7 +72,7 @@ public class CommunityController {
     }
     //팀 프로젝트 참가 API
     @PostMapping("api/projects/{id}/join")
-    public ResponseEntity<String> joinProject(@PathVariable int id,
+    public ResponseEntity<String> joinProject(@PathVariable Long id,
                                               @AuthenticationPrincipal CustomUser user) {
         if(user == null) {
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인이 필요합니다.");

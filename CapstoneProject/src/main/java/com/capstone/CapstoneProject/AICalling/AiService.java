@@ -21,7 +21,6 @@ public class AiService {
 
     //설문으로 결과 보기
     public FrontResponseDTO quizService(QuizRequestDto aiDto) {
-        System.out.println("여기까진 오고 있니?");
         String pythonUrl = "http://localhost:8000/ai/chat";
         Map<String, String> aiResponse = new HashMap<>();
         List<Map<String, String>> messages = new ArrayList<>();
