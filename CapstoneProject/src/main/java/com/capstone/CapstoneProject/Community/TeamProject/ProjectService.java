@@ -1,6 +1,7 @@
 package com.capstone.CapstoneProject.Community.TeamProject;
 
 import com.capstone.CapstoneProject.Member.Member;
+import com.capstone.CapstoneProject.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,11 +26,12 @@ public class ProjectService {
     private final ProjectMemberRepository projectMemberRepository;
     private final TagsRepository tagsRepository;
     private final ProjectRolesRepository projectRolesRepository;
+    private final MemberRepository memberRepository;
 
     //전체 리스트
      public Page<ProjectListDTO> getList(int page, String keyword) {
          int realPage = (page <= 0) ? 0 : page - 1;
-         Pageable pageable = PageRequest.of(realPage, 5,
+         Pageable pageable = PageRequest.of(realPage, 6,
                  Sort.Direction.DESC, "createdDate");
          Page<TeamProject> paging;
          if(keyword == null || keyword.isBlank()) {
@@ -55,8 +56,14 @@ public class ProjectService {
          Map<Long, List<String>> needRolesMap = groupEntitiesListByProjectId(needRoles,
                  needRole -> needRole.getProject().getId(),
                  ProjectRoles::getNeedRoles);
+         //프로젝트 참가한 사람 리스트로 반환
+         List<ProjectMember> allMembers = projectMemberRepository.findByProjectIdIn(projectIds);
+         Map<Long, List<String>> membersMap = groupEntitiesListByProjectId(allMembers,
+                 projectMembers -> projectMembers.getProject().getId(),
+                 projectMembers -> projectMembers.getUser().getProfileName());
          System.out.println("프로젝트에 필요한 직군 리스트" + needRolesMap);
          return paging.map(project -> new ProjectListDTO(
+                 project.getId(),
                  project.getCategory(),
                  project.getUserLimit(),
                  project.getTitle(),
@@ -65,7 +72,8 @@ public class ProjectService {
                  project.getCreatedDate(),
                  project.getModifiedDate(),
                  tagMap.getOrDefault(project.getId(), new ArrayList<>()),
-                 needRolesMap.getOrDefault(project.getId(), new ArrayList<>())
+                 needRolesMap.getOrDefault(project.getId(), new ArrayList<>()),
+                 membersMap.getOrDefault(project.getId(), new ArrayList<>())
          ));
      }
      //프로젝트 생성
@@ -91,7 +99,7 @@ public class ProjectService {
         tagsRepository.saveAll(tagsEntityList);
         
         List<ProjectRoles> needRolesList = new ArrayList<>();
-        for(String needRoles : projectCreateDTO.getNeedRoles()) {
+        for(String needRoles : projectCreateDTO.getNeededRoles()) {
             ProjectRoles projectRoles = ProjectRoles.builder()
                     .project(teamProject)
                     .needRoles(needRoles)
@@ -99,7 +107,6 @@ public class ProjectService {
             needRolesList.add(projectRoles);
         }
         projectRolesRepository.saveAll(needRolesList);
-
     }
 
     //프로젝트 상세 페이지
@@ -164,7 +171,7 @@ public class ProjectService {
             throw new IllegalArgumentException("모집이 마감되었습니다");
         }
         }
-
+        //조인 테이블에서 꺼내오기
         public <T> Map<Long, List<String>> groupEntitiesListByProjectId(
                 List<T> entities, Function<T, Long> extractProjectId,
                 Function<T, String> extractEntityValues) {

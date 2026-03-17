@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @ServletSecurity
@@ -41,7 +42,7 @@ public class SecurityConfig {
         //Ngrok OPTION 문제 개선
 
         http.formLogin((form)
-                -> form.loginProcessingUrl("/api/login")
+                -> form.loginProcessingUrl("/api/auth/login")
                 .usernameParameter("userID")
                 .passwordParameter("userPassword")
                 .successHandler(authSuccessHandler)
@@ -50,9 +51,13 @@ public class SecurityConfig {
                 //html 연결 시 formLogin -> formLogin.loginPage
 
         );
-        http.logout(logout -> logout.logoutUrl("/logout"))
-                .logout((logout) -> logout.logoutSuccessUrl("/mainPage"))
-                .logout((logout) -> logout.invalidateHttpSession(true));
+        http.logout(logout -> logout.logoutUrl("/api/logout"))
+                .logout((logout) -> logout.deleteCookies("JSESSIONID"))
+                .logout((logout) -> logout.invalidateHttpSession(true))
+                .logout((logout) -> logout.logoutSuccessHandler((
+                    request, response, authentication) -> {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } ));
 
 //        http.authorizeHttpRequests(auth -> auth
 //                        // 이 부분이 중요! /css/**, /js/** 등 정적 리소스는 모두 허용

@@ -25,7 +25,7 @@ public class ProjectCreateDTO {
     private String content;
     private List<String> tags;
     private String myRole;
-    private List<String> needRoles;
+    private List<String> neededRoles;
 
     public TeamProject toEntity(Member writer) {
         return TeamProject.builder()

@@ -23,7 +23,7 @@ public class MemberDTO {
     private  String password;
     @NotBlank(message = "전화번호를 입력해주세요.")
     private String cellphone;
-    @NotBlank(message = "전화번호를 입력해주세요")
+    @NotBlank(message = "닉네임 입력해주세요")
     private String profileName;
     @NotBlank(message = "비밀번호를 다시 입력해주세요.")
     private String confirmPassword;
