@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,11 +32,11 @@ public class CommunityController {
     //팀 프로젝트 생성 API
     @PostMapping("api/CreateProject")
     ResponseEntity<String> createTeamProject(@Valid @RequestBody ProjectCreateDTO projectCreateDTO,
-                                             @AuthenticationPrincipal CustomUser loginUser) {
+                                             @AuthenticationPrincipal UserDetails loginUser) {
         if(loginUser == null) {
             throw new RuntimeException("회원 정보가 없습니다");
         }
-        Member writer = loginUser.getMember();
+        String writer = loginUser.getUsername();
         projectService.saveProject(projectCreateDTO, writer);
 
         return ResponseEntity.ok().body("등록 완료!");

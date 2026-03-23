@@ -77,7 +77,8 @@ public class ProjectService {
          ));
      }
      //프로젝트 생성
-    public void saveProject(ProjectCreateDTO projectCreateDTO, Member writer) {
+    public void saveProject(ProjectCreateDTO projectCreateDTO, String loginUser) {
+         Member writer = memberRepository.findByUserID(loginUser);
         TeamProject teamProject = projectCreateDTO.toEntity(writer);
         teamProjectRepository.save(teamProject);
 
@@ -142,6 +143,9 @@ public class ProjectService {
          TeamProject tp = teamProjectRepository.findById(projectId)
                  .orElseThrow(() -> new IllegalArgumentException("없는 게시글입니다."));
          if(tp.getWriter().getUserID().equals(loginUser)) {
+             projectRolesRepository.deleteByProjectId(tp.getId());
+             projectMemberRepository.deleteByProjectId(tp.getId());
+             tagsRepository.deleteByProjectId(tp.getId());
              teamProjectRepository.delete(tp);
          }else {
              throw new IllegalArgumentException("작성자만 게시글을 삭제할 수 있습니다.");

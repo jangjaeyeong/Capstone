@@ -31,6 +31,5 @@ public class MyUserDetailService implements UserDetailsService {
         CustomUser customUser = new CustomUser(user);
         customUser.setProfileName(user.getProfileName());
         return customUser;
-
     }
 }

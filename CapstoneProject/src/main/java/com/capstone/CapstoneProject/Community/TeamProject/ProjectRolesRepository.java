@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProjectRolesRepository extends JpaRepository<ProjectRoles, Long> {
     List<ProjectRoles> findByProjectId(Long projectId);
     List<ProjectRoles> findByProjectIdIn(List<Long> projectIds);
+    long deleteByProjectId(Long projectId);
 }
