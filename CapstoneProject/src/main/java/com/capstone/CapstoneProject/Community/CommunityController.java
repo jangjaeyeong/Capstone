@@ -20,7 +20,7 @@ public class CommunityController {
     private final ProjectService projectService;
 
     //팀 프로젝트 리스트 API
-    @GetMapping("api/listProject")
+    @GetMapping("api/teamproject")
     ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page",
             defaultValue = "1")int pageNumber, @RequestParam
             (value = "keyword", required = false)String keyword) {
@@ -30,7 +30,7 @@ public class CommunityController {
         return ResponseEntity.ok(paging);
     }
     //팀 프로젝트 생성 API
-    @PostMapping("api/CreateProject")
+    @PostMapping("api/teamproject")
     ResponseEntity<String> createTeamProject(@Valid @RequestBody ProjectCreateDTO projectCreateDTO,
                                              @AuthenticationPrincipal UserDetails loginUser) {
         if(loginUser == null) {
