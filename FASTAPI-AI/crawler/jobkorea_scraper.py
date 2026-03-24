@@ -86,9 +86,7 @@ def send_to_ingest(
         "company": company,
         "location": location,
         "description": description,
-        # B안에서는 job_category / career_level / employment_type / tech_stacks
-        # 는 서버 쪽에서 나중에 채우거나 NULL로 두고,
-        # 추천 단계에서 AI가 사용하는 방식으로 가는 거야.
+    
     }
     resp = requests.post(INGEST_URL, json=payload, timeout=15)
     resp.raise_for_status()

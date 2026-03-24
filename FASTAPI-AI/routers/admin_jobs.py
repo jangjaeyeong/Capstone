@@ -54,7 +54,7 @@ TECH_KEYWORDS: List[str] = [
     # 클라우드 / DevOps
     "AWS", "GCP", "Azure",
     "Docker", "Kubernetes", "K8s",
-    "Jenkins", "GitLab CI", "GitHub Actions",
+    "Jenkins", "GitLab CI", "GitHub Actions", "Git",
     "Terraform", "Ansible",
 
     # OS / 기타
