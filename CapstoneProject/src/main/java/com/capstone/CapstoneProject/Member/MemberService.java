@@ -20,10 +20,10 @@ public class MemberService {
         Member member = memberDto.toEntity();
         List<String> roleNames = new ArrayList<>(); //권한 여러개 부여하기 위한 List
         roleNames.add("USER");                      //모든 유저는 USER 권한을 가짐
-        if(memberDto.getName().equals("admin")) {
-            roleNames.add("ADMIN");                 //이름이 admin일 경우 USER, ADMIN 두 개의 권한을 가짐
-        }
-        System.out.println(memberDto.getName());
+//        if(memberDto.getName().equals("admin")) {
+//            roleNames.add("ADMIN");                 //이름이 admin일 경우 USER, ADMIN 두 개의 권한을 가짐
+//        }
+//        System.out.println(memberDto.getName());
 
         List<Authority> userRole = authorityRepository.findByNameIn(roleNames);
         Optional<Member> userID = memberRepository.findAllByUserID(member.getUserID());
@@ -34,7 +34,8 @@ public class MemberService {
             throw new IllegalArgumentException("이미 사용중인아이디 입니다.");
         }else if (profileName.isPresent()) {
             throw new IllegalArgumentException("이미 사용중인 닉네임입니다.");
-        }else if (cellphone.isPresent()) {
+        }
+        else if (cellphone.isPresent()) {
             throw new IllegalArgumentException("이미 등록된 전화번호입니다.");
         }
         member.getAuthorities().addAll(userRole);
