@@ -19,4 +19,8 @@ public class ExceptionHandler {
     ResponseEntity<String> HandleIllegalArgument(IllegalArgumentException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+    @org.springframework.web.bind.annotation.ExceptionHandler({RuntimeException.class})
+    ResponseEntity<String> HandleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }

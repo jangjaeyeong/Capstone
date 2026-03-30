@@ -1,6 +1,10 @@
 package com.capstone.CapstoneProject;
 
 import com.capstone.CapstoneProject.Member.Login.*;
+import com.capstone.CapstoneProject.Member.Login.JWT.JwtAccessDeniedHandler;
+import com.capstone.CapstoneProject.Member.Login.JWT.JwtAuthenticationEntryPoint;
+import com.capstone.CapstoneProject.Member.Login.JWT.JwtFilter;
+import com.capstone.CapstoneProject.Member.Login.JWT.TokenProvider;
 import jakarta.servlet.annotation.ServletSecurity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -18,8 +22,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @ServletSecurity
@@ -32,8 +40,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    private final AuthSuccessHandler authSuccessHandler;
-    private final AuthFailureHandler authFailureHandler;
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
@@ -44,15 +50,16 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/**").permitAll());
+                        .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                        .anyRequest().authenticated());
+        http.cors(Customizer.withDefaults());
         //Ngrok OPTION 문제 개선
         http.exceptionHandling(exception -> exception
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler))
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/api/auth/login", "/api/signup").permitAll());
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
 
@@ -80,6 +87,22 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) {
             JwtFilter customFilter = new JwtFilter(tokenProvider);
             http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+        }
+
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            // 프론트엔드 주소 허용 (포트 번호 주의!)
+            configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://3.34.36.104"));
+            // ⭐️ DELETE, PUT 등 모든 방식 허용
+            configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            // Authorization 헤더 허용
+            configuration.setAllowedHeaders(List.of("*"));
+            configuration.setAllowCredentials(true);
+
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", configuration);
+            return source;
         }
     }
 

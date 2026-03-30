@@ -17,7 +17,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/api/userInsert")
+    @PostMapping("/api/auth/signup")
     ResponseEntity<String> userInsert(@Valid @RequestBody MemberDTO memberDTO) {
 
             memberService.saveMember (memberDTO);

@@ -1,9 +1,15 @@
 package com.capstone.CapstoneProject;
 
-import com.capstone.CapstoneProject.AICalling.*;
+import com.capstone.CapstoneProject.AI.*;
+import com.capstone.CapstoneProject.AI.DTO.ChatRequestDTO;
+import com.capstone.CapstoneProject.AI.DTO.FrontResponseDTO;
+import com.capstone.CapstoneProject.AI.DTO.InterviewQuestionResDTO;
+import com.capstone.CapstoneProject.AI.DTO.QuizRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,5 +40,12 @@ public class MainController {
         }
         Map<String, String> chat = aiService.chatService(chatReqDto);
         return chat;
+    }
+
+    @GetMapping("api/interview/questions")
+    ResponseEntity<List<InterviewQuestionResDTO>> questionList() {
+
+        List<InterviewQuestionResDTO> questions =  aiService.interviewQuestionList();
+        return ResponseEntity.ok(questions);
     }
 }

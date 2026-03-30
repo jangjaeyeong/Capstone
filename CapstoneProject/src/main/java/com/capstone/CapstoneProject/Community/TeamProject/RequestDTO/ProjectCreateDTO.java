@@ -1,0 +1,42 @@
+package com.capstone.CapstoneProject.Community.TeamProject.RequestDTO;
+
+import com.capstone.CapstoneProject.Community.TeamProject.Entity.TeamProject;
+import com.capstone.CapstoneProject.Member.Member;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProjectCreateDTO {
+    @NotBlank(message = "분야를 입력해주세요")
+    private String category;
+    @NotNull(message = "최대 인원을 입력해주세요")
+    @Min(value = 1, message = "인원은 최소 1명 이상이어야 합니다")
+    private int userLimit;
+    @NotBlank(message = "제목을 입력해주세요")
+    private String title;
+    @NotBlank(message = "내용을 입력해주세요")
+    private String content;
+    private List<String> tags;
+    private String myRole;
+    private List<String> neededRoles;
+    private List<RecruitmentsDTO> recruitments;
+
+    public TeamProject toEntity(Member writer) {
+        return TeamProject.builder()
+                .category(this.category)
+                .userLimit(this.userLimit)
+                .title(this.title)
+                .content(this.content)
+                .writer(writer)
+                .state("모집중")
+                .build();
+    }
+}
