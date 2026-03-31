@@ -26,7 +26,6 @@ public class PostService {
     public void savePosting(BoardCreateDTO boardCreateDTO, String userName) {
         Member writer = memberRepository.findByUserID(userName);
         Board freeBoard = boardCreateDTO.toEntity(writer);
-
         boardRepository.save(freeBoard);
     }
 
@@ -58,7 +57,7 @@ public class PostService {
     public String anonymous(Long postId) {
         Board board = boardRepository.findById(postId).orElseThrow(() ->
         new IllegalArgumentException("없는 내용입니다"));
-        if(board.isAnonymous()) {
+        if(!board.isAnonymous()) {
             return board.getWriter().getProfileName();
         }else {
             return "익명";

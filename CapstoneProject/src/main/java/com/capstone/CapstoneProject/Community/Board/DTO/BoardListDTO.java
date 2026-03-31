@@ -12,17 +12,17 @@ public class BoardListDTO {
     private String title;
     private String content;
     private int viewCount;
-    private String writer;
+    private String authorNickname;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
     public BoardListDTO(Long id, String title, String content, int viewCount,
-                        String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+                        String authorNickname, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.viewCount = viewCount;
-        this.writer = writer;
+        this.authorNickname = authorNickname;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }
