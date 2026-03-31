@@ -1,6 +1,5 @@
 package com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResRecruitmentDTO {
     private String role;
-    private Integer recruitments;
+    private Integer count;
 
-    public ResRecruitmentDTO(String needRoles, Integer recruitments) {
+    public ResRecruitmentDTO(String needRoles, Integer count) {
         this.role = needRoles;
-        this.recruitments = recruitments;
+        this.count = count;
     }
 }

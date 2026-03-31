@@ -120,4 +120,11 @@ public class CommunityController {
          return ResponseEntity.ok(paging);
      }
 
+     @GetMapping("api/community/posts/{postId}")
+    ResponseEntity<BoardListDTO> boardDetail(@PathVariable Long postId) {
+        BoardListDTO dto = postService.boardDetails(postId);
+
+        return ResponseEntity.ok().body(dto);
+     }
+
 }

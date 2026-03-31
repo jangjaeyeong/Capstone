@@ -102,6 +102,7 @@ public class ProjectService {
                  project.getCategory(),
                  project.getUserLimit(),
                  project.getTitle(),
+                 project.getContent(),
                  project.getState(),
                  project.getWriter().getProfileName(),
                  project.getCreatedDate(),

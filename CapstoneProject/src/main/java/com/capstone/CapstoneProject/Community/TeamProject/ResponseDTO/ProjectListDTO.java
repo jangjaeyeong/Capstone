@@ -14,6 +14,7 @@ public class ProjectListDTO {
     private String category;
     private int userLimit;
     private String title;
+    private String content;
     private String subStatus;
     private int viewCount;
     private String leaderName;
@@ -24,7 +25,8 @@ public class ProjectListDTO {
     private List<ListMembersDTO> members;
     private List<ResRecruitmentDTO> recruitments;
 
-    public ProjectListDTO(Long id, String category, int userLimit, String title, String subStatus,
+    public ProjectListDTO(Long id, String category, int userLimit, String title,
+                          String content, String subStatus,
                           String leaderName, LocalDateTime createdDate, LocalDateTime modifiedDate,
                           List<String> tags, List<String> needRoles, List<ListMembersDTO> members,
                           List<ResRecruitmentDTO> recruitments) {
@@ -32,6 +34,7 @@ public class ProjectListDTO {
         this.category = category;
         this.userLimit = userLimit;
         this.title = title;
+        this.content = content;
         this.subStatus = subStatus;
         this.leaderName = leaderName;
         this.createdDate = createdDate;

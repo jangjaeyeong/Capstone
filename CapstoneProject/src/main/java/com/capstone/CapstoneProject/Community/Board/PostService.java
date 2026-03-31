@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -64,5 +65,18 @@ public class PostService {
         }
 
     }
+
+    @Transactional(readOnly = true)
+    public BoardListDTO boardDetails(@PathVariable Long postId) {
+        Board board = boardRepository.findById(postId).orElseThrow(() ->
+                new IllegalArgumentException("게시물이 삭제되었습니다."));
+        board.increaseViewCount();
+        BoardListDTO boardListDTO = new BoardListDTO(postId,
+                board.getTitle(), board.getContent(), board.getViewCount(),
+                anonymous(board.getId()), board.getCreatedDate(),
+                board.getModifiedDate());
+        return boardListDTO;
+    }
+
 
 }
