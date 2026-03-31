@@ -1,7 +1,6 @@
-package com.capstone.CapstoneProject.Community.Free.Repository;
+package com.capstone.CapstoneProject.Community.Board.Repository;
 
-import com.capstone.CapstoneProject.Community.Free.Entity.FreeBoard;
-import com.capstone.CapstoneProject.Community.TeamProject.Entity.TeamProject;
+import com.capstone.CapstoneProject.Community.Board.Entity.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,16 +11,16 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
-    Optional<FreeBoard> findById(Long id);
-    Page<FreeBoard> findAll(Pageable pageable);
+public interface BoardRepository extends JpaRepository<Board, Long> {
+    Optional<Board> findById(Long id);
+    Page<Board> findAll(Pageable pageable);
     @Query(value = "select * from free_board where  title LIKE CONCAT('%', :keyword, '%')" +
             " order by created_date desc",
             countQuery = "select count(*) from free_board where title LIKE CONCAT" +
                     "('%', :keyword, '%')",
             nativeQuery = true)
-    Page<FreeBoard> fullTextSearch(@Param("keyword")String title, Pageable pageable);
+    Page<Board> fullTextSearch(@Param("keyword")String title, Pageable pageable);
 
-    Page<FreeBoard> findByTitleContaining(@Param("keyword")String title, Pageable pageable);
+    Page<Board> findByTitleContaining(@Param("keyword")String title, Pageable pageable);
 
 }

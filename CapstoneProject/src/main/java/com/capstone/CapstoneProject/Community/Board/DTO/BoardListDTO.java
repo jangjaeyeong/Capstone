@@ -1,6 +1,5 @@
-package com.capstone.CapstoneProject.Community.Free.DTO;
+package com.capstone.CapstoneProject.Community.Board.DTO;
 
-import com.capstone.CapstoneProject.Member.Member;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class FreeBoardListDTO {
+public class BoardListDTO {
     private Long id;
     private String title;
     private String content;
@@ -17,8 +16,8 @@ public class FreeBoardListDTO {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public FreeBoardListDTO(Long id, String title, String content, int viewCount,
-                            String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public BoardListDTO(Long id, String title, String content, int viewCount,
+                        String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -26,6 +25,5 @@ public class FreeBoardListDTO {
         this.writer = writer;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
-
     }
 }

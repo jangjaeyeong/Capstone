@@ -1,8 +1,8 @@
 package com.capstone.CapstoneProject.Community;
 
-import com.capstone.CapstoneProject.Community.Free.DTO.FreeBoardCreateDTO;
-import com.capstone.CapstoneProject.Community.Free.DTO.FreeBoardListDTO;
-import com.capstone.CapstoneProject.Community.Free.FreePostService;
+import com.capstone.CapstoneProject.Community.Board.DTO.BoardCreateDTO;
+import com.capstone.CapstoneProject.Community.Board.DTO.BoardListDTO;
+import com.capstone.CapstoneProject.Community.Board.PostService;
 import com.capstone.CapstoneProject.Community.TeamProject.*;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectCreateDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectEditDTO;
@@ -25,7 +25,7 @@ import java.util.Map;
 @Component
 public class CommunityController {
     private final ProjectService projectService;
-    private final FreePostService freePostService;
+    private final PostService postService;
 
     //팀 프로젝트 리스트 API
     @GetMapping("api/list")
@@ -98,24 +98,24 @@ public class CommunityController {
     }
 
     // 자유 게시판 등록
-    @PostMapping("api/freeboard")
-    ResponseEntity<String> createFreeBoard(@Valid @RequestBody FreeBoardCreateDTO freeBoardCreateDTO,
+    @PostMapping("api/community/posts")
+    ResponseEntity<String> createFreeBoard(@Valid @RequestBody BoardCreateDTO boardCreateDTO,
                                              @AuthenticationPrincipal UserDetails loginUser) {
         if(loginUser == null) {
             throw new RuntimeException("회원 정보가 없습니다");
         }
         String writer = loginUser.getUsername();
-        freePostService.savePosting(freeBoardCreateDTO, writer);
+        postService.savePosting(boardCreateDTO, writer);
 
         return ResponseEntity.ok().body("등록 완료!");
     }
     //자유게시판 리스트
-     @GetMapping("api/freeboard")
-     ResponseEntity<Page<FreeBoardListDTO>> listFreeBoard(@RequestParam(value="page",
+     @GetMapping("api/community/posts")
+     ResponseEntity<Page<BoardListDTO>> listFreeBoard(@RequestParam(value="page",
              defaultValue = "1")int pageNumber, @RequestParam
              (value = "keyword", required = false)String keyword) {
          if(keyword!= null) keyword = keyword.trim();
-         Page<FreeBoardListDTO> paging = freePostService.getList(pageNumber, keyword);
+         Page<BoardListDTO> paging = postService.getList(pageNumber, keyword);
 
          return ResponseEntity.ok(paging);
      }

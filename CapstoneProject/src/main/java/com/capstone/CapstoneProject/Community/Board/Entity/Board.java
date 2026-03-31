@@ -1,4 +1,4 @@
-package com.capstone.CapstoneProject.Community.Free.Entity;
+package com.capstone.CapstoneProject.Community.Board.Entity;
 
 import com.capstone.CapstoneProject.Community.Post;
 import jakarta.persistence.Entity;
@@ -10,5 +10,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @NoArgsConstructor
-public class FreeBoard extends Post {
+public class Board extends Post {
+    private String category;
+    private boolean anonymous;
 }
+
