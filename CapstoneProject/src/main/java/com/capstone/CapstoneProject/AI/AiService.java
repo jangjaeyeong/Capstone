@@ -146,6 +146,7 @@ public class AiService {
         List<InterviewQuestion> questions = interviewQuestionRepository.findAll();
 
         return questions.stream().map(question -> new InterviewQuestionResDTO(
+                question.getId(),
                 question.getCategory(),
                 question.getQuestion()
         )).collect(Collectors.toList());

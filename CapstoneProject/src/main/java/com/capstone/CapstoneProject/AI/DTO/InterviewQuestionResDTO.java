@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class InterviewQuestionResDTO {
+    private Long id;
     private String category;
     private String question;
 
