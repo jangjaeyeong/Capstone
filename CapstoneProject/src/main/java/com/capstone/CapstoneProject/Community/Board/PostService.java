@@ -78,5 +78,12 @@ public class PostService {
         return boardListDTO;
     }
 
+    public void deletePosting(Long postId, String user) {
+        Board board = boardRepository.findById(postId).orElseThrow(() ->
+                new IllegalArgumentException("이미 삭제된 게시글입니다."));
+        if(board.getWriter().getProfileName().equals(user)) {
+            boardRepository.delete(board);
+        }
+    }
 
 }

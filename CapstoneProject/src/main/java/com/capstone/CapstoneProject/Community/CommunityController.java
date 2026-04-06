@@ -127,4 +127,14 @@ public class CommunityController {
         return ResponseEntity.ok().body(dto);
      }
 
+    @DeleteMapping("api/community/posts/{postId}")
+    ResponseEntity<String> deletePosting(@PathVariable Long postId,
+                         @AuthenticationPrincipal UserDetails loginUser) {
+        if(loginUser == null) {
+            throw new RuntimeException("회원 정보가 없습니다");
+        }
+        postService.deletePosting(postId, loginUser.getUsername());
+
+        return ResponseEntity.ok().body("게시글이 삭제되었습니다.");
+    }
 }
