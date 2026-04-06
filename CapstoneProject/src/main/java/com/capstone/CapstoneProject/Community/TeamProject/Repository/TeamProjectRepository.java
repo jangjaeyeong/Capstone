@@ -19,6 +19,5 @@ public interface TeamProjectRepository extends JpaRepository<TeamProject, Long> 
                     "('%', :keyword, '%')",
             nativeQuery = true)
     Page<TeamProject> fullTextSearch(@Param("keyword")String title, Pageable pageable);
-
     Page<TeamProject> findByTitleContaining(@Param("keyword")String title, Pageable pageable);
 }

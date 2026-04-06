@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -114,7 +113,7 @@ public class AiService {
         return response;
     }
 
-    //AI한테 받은 값 앞단으로 재가공해서 꺼내주기
+    //AI한테 받은 값 프론트에 재가공해서 꺼내주기
     public FrontResponseDTO FrontResponseQuiz(QuizResponseDTO quizResDto) {
         List<FrontResponseDTO.StackItem> stack = new ArrayList<>();
         List<FrontResponseDTO.ReasonItem> reason = new ArrayList<>();

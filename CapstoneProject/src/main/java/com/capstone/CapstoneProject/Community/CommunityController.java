@@ -1,6 +1,7 @@
 package com.capstone.CapstoneProject.Community;
 
 import com.capstone.CapstoneProject.Community.Board.DTO.BoardCreateDTO;
+import com.capstone.CapstoneProject.Community.Board.DTO.BoardEditDTO;
 import com.capstone.CapstoneProject.Community.Board.DTO.BoardListDTO;
 import com.capstone.CapstoneProject.Community.Board.PostService;
 import com.capstone.CapstoneProject.Community.TeamProject.*;
@@ -127,6 +128,7 @@ public class CommunityController {
         return ResponseEntity.ok().body(dto);
      }
 
+    //커뮤니티 삭제
     @DeleteMapping("api/community/posts/{postId}")
     ResponseEntity<String> deletePosting(@PathVariable Long postId,
                          @AuthenticationPrincipal UserDetails loginUser) {
@@ -136,5 +138,15 @@ public class CommunityController {
         postService.deletePosting(postId, loginUser.getUsername());
 
         return ResponseEntity.ok().body("게시글이 삭제되었습니다.");
+    }
+    //커뮤니티 수정
+    @PatchMapping("api/community/posts/{postId}")
+    ResponseEntity<String> editPosting(@RequestBody BoardEditDTO boardEditDTO, @PathVariable Long postId,
+                                       @AuthenticationPrincipal UserDetails user) {
+        if(user == null) {
+            throw new RuntimeException("회원 정보가 없습니다.");
+        }
+        postService.editPosting(boardEditDTO, postId, user.getUsername());
+        return ResponseEntity.ok().body("수정이 완료되었습니다.");
     }
 }
