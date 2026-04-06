@@ -42,23 +42,25 @@ TECH_KEYWORDS: List[str] = [
 
     # 백엔드 / 서버
     "Spring", "Spring Boot", "Django", "Flask", "FastAPI",
-    "Node.js", "Express", "NestJS",
+    "Node.js", "Express", "NestJS", "Ruby on Rails", "Laravel", "ASP.NET", "Go", 
 
     # 프론트엔드
-    "React", "React.js", "Next.js", "Vue", "Vue.js", "Nuxt", "Svelte", "Angular",
+    "React", "React.js", "Next.js", "Vue", "Vue.js", "Nuxt", "Svelte", "Angular", "Tailwind CSS", "TypeScript",
+    "TSS", "CSS", "HTML",
 
     # DB / 검색
     "MySQL", "PostgreSQL", "MariaDB", "Oracle", "MongoDB",
-    "Redis", "Elasticsearch",
+    "Redis", "Elasticsearch", "Solr","InfluxDB", "TimescaleDB",
 
     # 클라우드 / DevOps
     "AWS", "GCP", "Azure",
     "Docker", "Kubernetes", "K8s",
     "Jenkins", "GitLab CI", "GitHub Actions", "Git",
-    "Terraform", "Ansible",
+    "Terraform", "Ansible", "Git", "CI/CD", "ArgoCD","Prometheus", "Grafana","Datadog","New Relic","Splunk",
 
     # OS / 기타
-    "Linux", "Unix", "REST API", "GraphQL",
+    "Linux", "Unix", "REST API", "GraphQL", "gRPC", "WebSocket",
+    "Machine Learning", "Deep Learning", "AI", "ML", "TensorFlow",
 ]
 
 
