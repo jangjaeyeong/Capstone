@@ -209,6 +209,7 @@ async def chat(req: ChatReq, db: Session = Depends(get_db)):
         # JSON 파싱
         try:
             answer = json.loads(answer_text)
+            print(f"AI 추천 결과 (파싱 성공): {answer}")
         except json.JSONDecodeError:
             answer = {
                 "role": "분석 실패",
@@ -216,5 +217,6 @@ async def chat(req: ChatReq, db: Session = Depends(get_db)):
                 "roadmap": [],
                 "reasons": {"error": "응답이 JSON 형식이 아닙니다.", "raw": answer_text}
             }
+            print(f"AI 추천 결과 (파싱 실패): {answer}")
 
         return answer
