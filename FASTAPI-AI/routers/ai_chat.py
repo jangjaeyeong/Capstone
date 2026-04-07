@@ -10,12 +10,11 @@ import json
 from dotenv import load_dotenv
 from typing import Optional, List, Tuple
 from collections import Counter
-
 from sqlalchemy.orm import Session
-
 from schemas.ai import ChatReq
 from db import get_db
 from models.job import Job
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -27,6 +26,9 @@ router = APIRouter(
     prefix="/ai",
     tags=["ai"],
 )
+class FeedbackReq(BaseModel):
+    question: str
+    user_answer: str
 
 # -----------------------------------------------------
 # 사용자 텍스트에서 목표 직군 추론
@@ -218,5 +220,72 @@ async def chat(req: ChatReq, db: Session = Depends(get_db)):
                 "reasons": {"error": "응답이 JSON 형식이 아닙니다.", "raw": answer_text}
             }
             print(f"AI 추천 결과 (파싱 실패): {answer}")
+
+        return answer
+
+@router.post("/feedback")
+async def get_interview_feedback(req: FeedbackReq):
+    """
+    지원자의 면접 답변을 분석하여 점수와 피드백을 JSON으로 반환합니다.
+    """
+    if not OPENAI_API_KEY:
+        raise HTTPException(status_code=500, detail="OPENAI_API_KEY missing")
+
+    # 시스템 프롬프트: 면접관 역할 부여 및 출력 형식 지정
+    system_msg = (
+        "너는 10년 차 IT 대기업 면접관이다. 지원자의 답변을 기술적 정확성, 논리력, 태도 면에서 날카롭게 평가한다.\n"
+        "반드시 한국어로 답변하고, 출력은 오직 아래 JSON 형식으로만 한다.\n\n"
+        "{\n"
+        '  "summary": "한 줄 총평",\n'
+        '  "strengths": "칭찬할 점",\n'
+        '  "improvements": "보완할 점",\n'
+        '  "tips": "작성 팁"\n'
+        "}"
+    )
+
+    user_msg = (
+        f"질문: {req.question}\n"
+        f"지원자 답변: {req.user_answer}\n\n"
+        "이 답변에 대해 점수(100점 만점)와 상세 피드백을 JSON으로 작성해줘."
+    )
+
+    payload = {
+        "model": MODEL_ID,
+        "messages": [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": user_msg},
+        ],
+        "temperature": 0.3,
+    }
+
+    headers = {"Authorization": f"Bearer {OPENAI_API_KEY}"}
+
+    async with httpx.AsyncClient(timeout=60) as client:
+        r = await client.post(
+            f"{OPENAI_BASE_URL}/v1/chat/completions",
+            json=payload,
+            headers=headers,
+        )
+
+        try:
+            r.raise_for_status()
+        except httpx.HTTPStatusError as e:
+            raise HTTPException(status_code=r.status_code, detail=r.text)
+
+        data = r.json()
+        answer_text = data["choices"][0]["message"]["content"]
+
+        # JSON 파싱
+        try:
+            answer = json.loads(answer_text)
+            print(f"피드백 결과 (성공): {answer}")
+        except json.JSONDecodeError:
+            answer = {
+                "score": 0,
+                "good_point": "분석 실패",
+                "bad_point": "AI 응답 형식 오류",
+                "best_answer": "다시 시도해주세요."
+            }
+            print(f"피드백 결과 (실패): {answer_text}")
 
         return answer
