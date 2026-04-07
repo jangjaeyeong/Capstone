@@ -20,10 +20,6 @@ public class BoardCreateDTO {
     private boolean anonymous;
 
     public Board toEntity(Member writer){
-        System.out.println("title : " + this.title);
-        System.out.println("content : " + this.content);
-        System.out.println("category : " + this.category);
-        System.out.println("anonymous : " + this.anonymous);
         return Board.builder()
                 .title(this.title)
                 .content(this.content)

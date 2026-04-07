@@ -1,10 +1,7 @@
 package com.capstone.CapstoneProject;
 
 import com.capstone.CapstoneProject.AI.*;
-import com.capstone.CapstoneProject.AI.DTO.ChatRequestDTO;
-import com.capstone.CapstoneProject.AI.DTO.FrontResponseDTO;
-import com.capstone.CapstoneProject.AI.DTO.InterviewQuestionResDTO;
-import com.capstone.CapstoneProject.AI.DTO.QuizRequestDto;
+import com.capstone.CapstoneProject.AI.DTO.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -57,5 +54,10 @@ public class MainController {
 
         List<InterviewQuestionResDTO> questions =  aiService.interviewQuestionList();
         return ResponseEntity.ok(questions);
+    }
+    @PostMapping("api/interview/feedback")
+    ResponseEntity<FeedbackResDTO> interviewFeedback(@RequestBody FeedbackReqDTO feedbackReqDTO) {
+            ResponseEntity<FeedbackResDTO> responseDTO = aiService.interviewFeedback(feedbackReqDTO);
+        return responseDTO;
     }
 }

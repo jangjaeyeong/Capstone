@@ -151,4 +151,21 @@ public class AiService {
         )).collect(Collectors.toList());
 
     }
+
+    public ResponseEntity<FeedbackResDTO> interviewFeedback(FeedbackReqDTO feedbackReqDTO) {
+        InterviewQuestion interview = interviewQuestionRepository.
+                findById(feedbackReqDTO.getQuestionId()).orElseThrow(() ->
+                        new IllegalArgumentException("없는 질문입니다."));
+        String question = interview.getQuestion();
+        String pythonUrl = "http://localhost:8000/ai/feedback";
+        Map<String, String> payload = new HashMap<>();
+        payload.put("question", question);
+        payload.put("user_answer", feedbackReqDTO.getAnswer());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(payload, headers);
+        System.out.println("사용자 답변: " + payload);
+        ResponseEntity<FeedbackResDTO> res = restTemplate.postForEntity(pythonUrl, entity, FeedbackResDTO.class);
+        System.out.println("AI 답변: " + res.getBody());
+        return res;
+    }
 }

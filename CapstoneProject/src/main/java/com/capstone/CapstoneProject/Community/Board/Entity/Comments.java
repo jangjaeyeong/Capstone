@@ -1,48 +1,39 @@
-package com.capstone.CapstoneProject.Community;
+package com.capstone.CapstoneProject.Community.Board.Entity;
 
 import com.capstone.CapstoneProject.Member.Member;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
-@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
-@SuperBuilder
+@Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Post {
+public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String content;
-    @ManyToOne(fetch = FetchType.LAZY)
+    private String comment;
+    @ManyToOne
     @JoinColumn(name = "writer_id")
     private Member writer;
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int viewCount = 0;
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board postId;
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdDate;      //등록 날짜
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+    private boolean anonymous;
 
-    public void editPost(String title, String content) {
-        if(title != null && !title.equals("")) {
-            this.title = title;
-        }
-        if(content != null && ! content.equals("")) {
-            this.content = content;
-        }
-    }
-    public void increaseViewCount() {
-        this.viewCount++;
-    }
 }
