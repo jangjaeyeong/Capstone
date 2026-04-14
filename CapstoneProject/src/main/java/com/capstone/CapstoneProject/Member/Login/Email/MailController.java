@@ -15,16 +15,16 @@ public class MailController {
     private final  MailServiceInterface mailServiceInterface;
 
     //인증번호 발송 메서드
-    @PostMapping("/api/users/mail")
+    @PostMapping("api/auth/email/send-code")
     public CompletableFuture<String> mailSend(@RequestBody MailRequestDTO mailRequestDTO){
-        return mailServiceInterface.sendMail(mailRequestDTO.getMail()).thenApply(
+        return mailServiceInterface.sendMail(mailRequestDTO.getEmail()).thenApply(
                 number -> String.valueOf(number));
     }
 
     //인증번호 검증 메서드
-    @PostMapping("api/users/verify-code")
+    @PostMapping("api/auth/email/verify-code")
     public String verifyCode(@RequestBody MailVerificationRequestDTO mailVerificationRequestDTO) {
-        boolean isVerified = mailServiceInterface.verifyCode(mailVerificationRequestDTO.getMail(),
+        boolean isVerified = mailServiceInterface.verifyCode(mailVerificationRequestDTO.getEmail(),
                 mailVerificationRequestDTO.getCode());
         return isVerified ? "Verified" : "Verification failed";
     }

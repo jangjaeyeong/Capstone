@@ -52,7 +52,8 @@ public class SecurityConfig {
                 authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()
                         .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                        .requestMatchers("/api/users/mail", "/api/users/verify-code").permitAll()
+                        .requestMatchers("/api/auth/email/send-code",
+                                "/api/auth/email/verify-code").permitAll()
                         .anyRequest().authenticated());
         http.cors(Customizer.withDefaults());
         //Ngrok OPTION 문제 개선

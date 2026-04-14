@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class MailVerificationRequestDTO {
-    private String mail;
+    private String email;
     private int code;
 }

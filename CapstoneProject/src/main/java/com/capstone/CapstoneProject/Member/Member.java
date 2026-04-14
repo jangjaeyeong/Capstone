@@ -23,8 +23,8 @@ public class Member {
     @Column(name = "userID", unique = true)
     private String userID; //ID
     private  String password; //비밀번호
-    @Column(name = "cellphone", unique = true)
-    private String cellphone; //전화번호
+    @Column(name = "email", unique = true)
+    private String email; //전화번호
     @Column(name = "profileName", unique = true)
     private String profileName; //닉네임
 
