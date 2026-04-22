@@ -90,11 +90,11 @@ async def rag_chat(body: RagRequest, db: Session = Depends(get_db)):
 
     # 3) pgvector 코사인 유사도 + distance 검색 쿼리
     sql = text("""
-        SELECT id, title, content,
-               (embedding <-> CAST(:qvec AS vector)) AS distance
-        FROM documents
-        ORDER BY embedding <-> CAST(:qvec AS vector)
-        LIMIT 3;
+        SELECT id, title, description AS content, company, url, 
+           (embedding <-> CAST(:qvec AS vector)) AS distance
+    FROM jobs
+    ORDER BY embedding <-> CAST(:qvec AS vector)
+    LIMIT 3;
     """)
 
     rows = db.execute(sql, {"qvec": qvec_str}).mappings().all()
@@ -103,7 +103,7 @@ async def rag_chat(body: RagRequest, db: Session = Depends(get_db)):
 
     if rows:
         best_distance = rows[0]["distance"]
-        if best_distance > THRESHOLD:
+        if best_distance is None or best_distance > THRESHOLD:
             rows = []
 
     context_parts = []

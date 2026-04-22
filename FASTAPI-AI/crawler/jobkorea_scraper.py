@@ -136,7 +136,7 @@ def process_urls():
                         result = response.json()
                         print(f"서버 전송 성공! (직무: {result.get('job_category')}, 기술: {result.get('tech_stacks')})")
                     else:
-                        print(f"서버 에러: {response.status_code}")
+                        print(f"서버 에러: {response.status_code} -이유 {response.text}")
                     
                 except Exception as e:
                     print(f"크롤링 실패 ({detail_url}): {e}")

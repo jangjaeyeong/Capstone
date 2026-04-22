@@ -1,14 +1,14 @@
 # 백엔드 개발자 공고
-https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000229
+#https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000229
 
 # 프론트엔드 개발자 공고
-https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000230
+#https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000230
 
 #게임 개발자 공고
 https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000240
 
 #웹 개발자 공고
-https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000231
+#https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000231
 
 #앱 개발자 공고
 https://www.jobkorea.co.kr/Recruit/JobList?menucode=duty&duty=1000232
