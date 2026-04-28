@@ -5,6 +5,8 @@ import com.capstone.CapstoneProject.Member.Login.JWT.JwtAccessDeniedHandler;
 import com.capstone.CapstoneProject.Member.Login.JWT.JwtAuthenticationEntryPoint;
 import com.capstone.CapstoneProject.Member.Login.JWT.JwtFilter;
 import com.capstone.CapstoneProject.Member.Login.JWT.TokenProvider;
+import com.capstone.CapstoneProject.Member.Login.Oauth2.CustomOAuth2UserService;
+import com.capstone.CapstoneProject.Member.Login.Oauth2.OAuth2SuccessHandler;
 import jakarta.servlet.annotation.ServletSecurity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -43,6 +45,8 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,7 +58,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/**").permitAll()
                         .requestMatchers("/api/auth/email/send-code",
                                 "/api/auth/email/verify-code").permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(authorization -> authorization
+                                .baseUri("/api/oauth2/authorization"))
+                        .redirectionEndpoint(redirection -> redirection
+                                .baseUri("/api/login/oauth2/code/*"))
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService))
+                        .successHandler(oAuth2SuccessHandler));
         http.cors(Customizer.withDefaults());
         //Ngrok OPTION 문제 개선
         http.exceptionHandling(exception -> exception

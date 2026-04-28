@@ -1,6 +1,5 @@
 package com.capstone.CapstoneProject.Member;
 
-import com.capstone.CapstoneProject.Member.Login.Email.MailService;
 import com.capstone.CapstoneProject.Member.Login.Email.MailServiceInterface;
 import com.capstone.CapstoneProject.Member.Login.Email.VerificationInfo;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class MemberService {
     private final MailServiceInterface mailServiceInterface;
 
     public void saveMember(MemberDTO memberDto) {
-        Member member = memberDto.toEntity();
+        Member member = memberDto.LocalToEntity();
         List<String> roleNames = new ArrayList<>(); //권한 여러개 부여하기 위한 List
         roleNames.add("USER");                      //모든 유저는 USER 권한을 가짐
         if(memberDto.getUserId().equals("admin")) {
@@ -30,19 +29,12 @@ public class MemberService {
         System.out.println(memberDto.getUserId());
 
         List<Authority> userRole = authorityRepository.findByNameIn(roleNames);
-        Optional<Member> userID = memberRepository.findAllByUserID(member.getUserID());
-        Optional<Member> profileName = memberRepository.findAllByProfileName(member.getProfileName());
         Optional<Member> email = memberRepository.findAllByEmail(member.getEmail());
         VerificationInfo info = mailServiceInterface.getVerificationInfo(memberDto.getEmail());
         System.out.println("memberService--------------" + memberDto.getEmail());
         System.out.println(info.getCode());
         System.out.println(info.isVerified());
-        if(userID.isPresent()) {
-            throw new IllegalArgumentException("이미 사용중인아이디 입니다.");
-        }else if (profileName.isPresent()) {
-            throw new IllegalArgumentException("이미 사용중인 닉네임입니다.");
-        }
-        else if (email.isPresent()) {
+       if (email.isPresent()) {
             throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }else if(info == null || !info.isVerified()) {
             throw new IllegalArgumentException("이메일 인증 먼저 해주세요.");

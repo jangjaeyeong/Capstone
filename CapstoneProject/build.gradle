@@ -40,6 +40,8 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 	//email SMTP
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//Oauth2
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 tasks.named('test') {

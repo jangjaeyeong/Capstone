@@ -24,9 +24,11 @@ public class Member {
     private String userID; //ID
     private  String password; //비밀번호
     @Column(name = "email", unique = true)
-    private String email; //전화번호
+    private String email; //이메일
     @Column(name = "profileName", unique = true)
     private String profileName; //닉네임
+    private String provider; //출처
+    private String providerCode;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // 성능을 위해 LAZY로 설정
     @JoinTable(
@@ -34,7 +36,6 @@ public class Member {
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
-
     @Builder.Default
     private Set<Authority> authorities = new HashSet<>();
 }

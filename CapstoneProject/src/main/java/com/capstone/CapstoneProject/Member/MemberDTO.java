@@ -10,20 +10,17 @@ import lombok.Builder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDTO {
-    @NotBlank(message = "아이디를 입력해주세요.")
     private String userId;
-    @NotBlank(message = "비밀번호를 입력해주세요.")
-    @Size(min = 2, max = 20)
+    @Size(min = 8, max = 20)
     private  String password;
-    @NotBlank(message = "이메일을 입력해주세요.")
     private String email;
-    @NotBlank(message = "닉네임 입력해주세요")
     private String nickname;
-    @NotBlank(message = "비밀번호를 다시 입력해주세요.")
     private String confirmPassword;
 
 
@@ -32,13 +29,29 @@ public class MemberDTO {
         return password.equals(confirmPassword);
     }
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Builder
-    public Member toEntity() {
+    public Member LocalToEntity() {
         return Member.builder()
                 .userID(this.userId)
                 .password(passwordEncoder.encode(this.password))
                 .email(this.email)
                 .profileName(this.nickname)
+                .provider("local")
+                .providerCode("null")
                 .build();
+    }
+    public Member SocialToEntity(String email, String profileName, String provider, String providerCode) {
+        return Member.builder()
+                .password(UUID.randomUUID().toString())
+                .email(email)
+                .profileName(profileName)
+                .provider(provider)
+                .providerCode(providerCode)
+                .build();
+    }
+    public void updateSocialInfo(String nickname, String email) {
+        this.nickname = nickname;
+        this.email = email;
     }
 }
