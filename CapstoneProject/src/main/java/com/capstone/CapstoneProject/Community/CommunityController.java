@@ -34,7 +34,7 @@ public class CommunityController {
         @GetMapping("api/list")
         ResponseEntity<Page<ProjectListDTO>> listProject(@RequestParam(value="page",
                 defaultValue = "1")int pageNumber, @RequestParam
-                                                                 (value = "keyword", required = false)String keyword) {
+                (value = "keyword", required = false)String keyword) {
             if(keyword!= null) keyword = keyword.trim();
             Page<ProjectListDTO> paging = projectService.getList(pageNumber, keyword);
 
