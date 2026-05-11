@@ -5,17 +5,14 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ChatMessageResponse {
+public class ChatFileItemResponse {
 
-    private Long id;
+    private Long messageId;
     private Long projectId;
-    private String senderNickname;
-    private String content;
-    private String messageType;
+    private String uploaderNickname;
     private String fileUrl;
     private String originalFileName;
+    private String fileType;
     private LocalDateTime createdAt;
-    private long readCount;
-    private long unreadCount;
-    private boolean mentionedMe;
+
 }

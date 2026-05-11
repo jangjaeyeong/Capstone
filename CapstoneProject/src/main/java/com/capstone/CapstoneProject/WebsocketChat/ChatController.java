@@ -1,3 +1,4 @@
+
 package com.capstone.CapstoneProject.WebsocketChat;
 
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -32,10 +33,47 @@ public class ChatController {
                 "/topic/teamproject/" + projectId,
                 savedMessage
         );
+
+        if (request.getMentionedNicknames() != null) {
+            for (String nickname : request.getMentionedNicknames()) {
+                if (nickname == null || nickname.isBlank()) continue;
+
+                messagingTemplate.convertAndSend(
+                        "/topic/chat/mentions/" + nickname.trim(),
+                        savedMessage
+                );
+            }
+        }
     }
 
     @GetMapping("/api/teamproject/{projectId}/chat/messages")
-    public List<ChatMessageResponse> getMessages(@PathVariable Long projectId) {
-        return chatMessageService.getMessages(projectId);
+    public List<ChatMessageResponse> getMessages(
+            @PathVariable Long projectId,
+            @RequestParam String nickname,
+            @RequestParam(defaultValue = "0") long participantCount
+    ) {
+        return chatMessageService.getMessages(projectId, nickname, participantCount);
+    }
+
+    @PatchMapping("/api/teamproject/{projectId}/chat/read")
+    public void markAsRead(
+            @PathVariable Long projectId,
+            @RequestParam String nickname
+    ) {
+        chatMessageService.markAsRead(projectId, nickname);
+    }
+
+    @GetMapping("/api/teamproject/{projectId}/chat/files")
+    public List<ChatFileItemResponse> getFiles(@PathVariable Long projectId) {
+        return chatMessageService.getFiles(projectId);
+    }
+
+    @GetMapping("/api/teamproject/{projectId}/chat/summary")
+    public ChatRoomSummaryResponse getRoomSummary(
+            @PathVariable Long projectId,
+            @RequestParam String roomName,
+            @RequestParam String nickname
+    ) {
+        return chatMessageService.getRoomSummary(projectId, roomName, nickname);
     }
 }

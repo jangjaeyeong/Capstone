@@ -1,6 +1,9 @@
 package com.capstone.CapstoneProject.WebsocketChat;
 
+
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ChatMessageRequest {
@@ -11,4 +14,5 @@ public class ChatMessageRequest {
     private String messageType;
     private String fileUrl;
     private String originalFileName;
+    private List<String> mentionedNicknames;
 }

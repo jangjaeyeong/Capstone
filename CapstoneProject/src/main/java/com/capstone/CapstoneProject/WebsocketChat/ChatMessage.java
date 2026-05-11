@@ -1,5 +1,6 @@
 package com.capstone.CapstoneProject.WebsocketChat;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "chat_message")
 @Getter
 @Setter
 public class ChatMessage {
@@ -27,8 +29,11 @@ public class ChatMessage {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
     private String fileUrl;
+
     private String originalFileName;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
