@@ -1,4 +1,4 @@
-package com.capstone.CapstoneProject.WebsocketChat;
+package com.capstone.CapstoneProject.WebsocketChat.FileDTO;
 
 import lombok.Data;
 

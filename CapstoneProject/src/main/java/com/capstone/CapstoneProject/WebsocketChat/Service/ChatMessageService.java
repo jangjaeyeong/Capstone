@@ -1,11 +1,22 @@
-package com.capstone.CapstoneProject.WebsocketChat;
+package com.capstone.CapstoneProject.WebsocketChat.Service;
 
+import com.capstone.CapstoneProject.WebsocketChat.*;
+import com.capstone.CapstoneProject.WebsocketChat.Entity.ChatMention;
+import com.capstone.CapstoneProject.WebsocketChat.Entity.ChatMessage;
+import com.capstone.CapstoneProject.WebsocketChat.FileDTO.ChatFileItemResponse;
+import com.capstone.CapstoneProject.WebsocketChat.MessageDTO.ChatMessageRequest;
+import com.capstone.CapstoneProject.WebsocketChat.MessageDTO.ChatMessageResponse;
+import com.capstone.CapstoneProject.WebsocketChat.MessageDTO.ChatRoomSummaryResponse;
+import com.capstone.CapstoneProject.WebsocketChat.Repository.ChatMentionRepository;
+import com.capstone.CapstoneProject.WebsocketChat.Repository.ChatMessageRepository;
+import com.capstone.CapstoneProject.WebsocketChat.Repository.ChatReadStatusRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
@@ -22,7 +33,7 @@ public class ChatMessageService {
         this.chatMentionRepository = chatMentionRepository;
     }
 
-    @Transactional
+
     public ChatMessageResponse saveMessage(Long projectId, ChatMessageRequest request) {
         ChatMessage message = new ChatMessage();
         message.setProjectId(projectId);

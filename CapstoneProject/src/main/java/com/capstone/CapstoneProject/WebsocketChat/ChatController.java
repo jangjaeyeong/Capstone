@@ -1,6 +1,10 @@
 
 package com.capstone.CapstoneProject.WebsocketChat;
 
+import com.capstone.CapstoneProject.WebsocketChat.MessageDTO.ChatMessageRequest;
+import com.capstone.CapstoneProject.WebsocketChat.MessageDTO.ChatMessageResponse;
+import com.capstone.CapstoneProject.WebsocketChat.MessageDTO.ChatRoomSummaryResponse;
+import com.capstone.CapstoneProject.WebsocketChat.Service.ChatMessageService;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -33,6 +37,7 @@ public class ChatController {
                 "/topic/teamproject/" + projectId,
                 savedMessage
         );
+        System.out.println(request.getMessageType());
 
         if (request.getMentionedNicknames() != null) {
             for (String nickname : request.getMentionedNicknames()) {
@@ -63,10 +68,10 @@ public class ChatController {
         chatMessageService.markAsRead(projectId, nickname);
     }
 
-    @GetMapping("/api/teamproject/{projectId}/chat/files")
-    public List<ChatFileItemResponse> getFiles(@PathVariable Long projectId) {
-        return chatMessageService.getFiles(projectId);
-    }
+//    @GetMapping("/api/teamproject/{projectId}/chat/files")
+//    public List<ChatFileItemResponse> getFiles(@PathVariable Long projectId) {
+//        return chatMessageService.getFiles(projectId);
+//    }
 
     @GetMapping("/api/teamproject/{projectId}/chat/summary")
     public ChatRoomSummaryResponse getRoomSummary(

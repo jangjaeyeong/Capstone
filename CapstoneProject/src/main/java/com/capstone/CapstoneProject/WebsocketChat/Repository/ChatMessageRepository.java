@@ -1,6 +1,8 @@
-package com.capstone.CapstoneProject.WebsocketChat;
+package com.capstone.CapstoneProject.WebsocketChat.Repository;
 
 
+import com.capstone.CapstoneProject.WebsocketChat.Entity.ChatMessage;
+import com.capstone.CapstoneProject.WebsocketChat.ChatMessageType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;

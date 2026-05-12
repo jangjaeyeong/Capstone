@@ -1,4 +1,4 @@
-package com.capstone.CapstoneProject.WebsocketChat;
+package com.capstone.CapstoneProject.WebsocketChat.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
