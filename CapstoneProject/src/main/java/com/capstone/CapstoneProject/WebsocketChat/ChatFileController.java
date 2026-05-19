@@ -2,6 +2,7 @@ package com.capstone.CapstoneProject.WebsocketChat;
 
 import com.capstone.CapstoneProject.Community.S3Service;
 import com.capstone.CapstoneProject.WebsocketChat.FileDTO.ChatFileItemResponse;
+import com.capstone.CapstoneProject.WebsocketChat.FileDTO.ChatFileRequest;
 import com.capstone.CapstoneProject.WebsocketChat.FileDTO.ChatFileResponse;
 import com.capstone.CapstoneProject.WebsocketChat.Service.ChatFileService;
 import com.capstone.CapstoneProject.WebsocketChat.Service.ChatMessageService;
@@ -29,11 +30,10 @@ public class ChatFileController {
     @PostMapping(value = "/api/teamproject/{projectId}/chat/files")
     public ResponseEntity<ChatFileResponse> uploadFile(
             @PathVariable Long projectId,
-            @RequestBody String file
-    ) {
+            @RequestBody ChatFileRequest request
+            ) {
         System.out.println("===== 파일 업로드 요청 들어옴 =====");
         System.out.println("projectId = " + projectId);
-
 
         try{
             s3Client.listObjectsV2(b -> b.bucket("provi-219592954442-ap-northeast-2-an"));
@@ -41,8 +41,10 @@ public class ChatFileController {
         }catch (Exception e) {
             System.out.println("버킷 연결 실패" + e.getMessage());
         }
+        System.out.println("fileName :::::" + request.getFileName());
+        System.out.println("fileType :::::" + request.getContentType());
 
-        ChatFileResponse fileResponse = chatFileService.saveFile(file);
+        ChatFileResponse fileResponse = chatFileService.saveFile(request.getFileName(), request.getContentType());
         System.out.println("file DTO Check ------" + fileResponse);
         return ResponseEntity.ok().body(fileResponse);
     }

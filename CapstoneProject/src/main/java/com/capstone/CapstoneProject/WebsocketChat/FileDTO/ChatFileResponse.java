@@ -9,4 +9,6 @@ public class ChatFileResponse {
 
     private String fileUrl;
     private String originalFileName;
+    private String fileType;
+    private String disposition;
 }

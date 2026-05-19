@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chat_message")
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
@@ -24,12 +23,14 @@ public class ChatMessage {
     private Long projectId;
     @Column(nullable = false, length = 100)
     private String senderNickname;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private ChatMessageType messageType;
+//    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 1000)
+    private String messageType;
     @Column(columnDefinition = "TEXT")
     private String content;
+    @Column(columnDefinition = "TEXT")
     private String fileUrl;
+    @Column(columnDefinition = "TEXT")
     private String originalFileName;
     @Column(nullable = false, updatable = false)
     @CreatedDate

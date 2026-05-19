@@ -43,7 +43,7 @@ public class ChatMessageService {
         message.setOriginalFileName(request.getOriginalFileName());
 
         ChatMessageType type = parseMessageType(request.getMessageType());
-        message.setMessageType(type);
+        message.setMessageType(request.getMessageType());
 
         ChatMessage saved = chatMessageRepository.save(message);
 
@@ -115,12 +115,12 @@ public class ChatMessageService {
                 .map(ChatReadStatus::getLastReadMessageId)
                 .orElse(0L);
 
-        chatMessageRepository.findTopByProjectIdOrderByIdDesc(projectId)
-                .ifPresent(last -> {
-                    response.setLastMessage(makeLastMessageText(last));
-                    response.setLastMessageType(last.getMessageType().name());
-                    response.setLastMessageTime(last.getCreatedAt());
-                });
+//        chatMessageRepository.findTopByProjectIdOrderByIdDesc(projectId)
+//                .ifPresent(last -> {
+//                    response.setLastMessage(makeLastMessageText(last));
+//                    response.setLastMessageType(last.getMessageType().name());
+//                    response.setLastMessageTime(last.getCreatedAt());
+//                });
 
         long unreadCount = chatMessageRepository
                 .countByProjectIdAndIdGreaterThanAndSenderNicknameNot(
@@ -172,7 +172,7 @@ public class ChatMessageService {
         response.setProjectId(message.getProjectId());
         response.setSenderNickname(message.getSenderNickname());
         response.setContent(message.getContent());
-        response.setMessageType(message.getMessageType().name());
+        response.setMessageType(message.getMessageType());
         response.setFileUrl(message.getFileUrl());
         response.setOriginalFileName(message.getOriginalFileName());
         response.setCreatedAt(message.getCreatedAt());
@@ -215,27 +215,27 @@ public class ChatMessageService {
         response.setUploaderNickname(message.getSenderNickname());
         response.setFileUrl(message.getFileUrl());
         response.setOriginalFileName(message.getOriginalFileName());
-        response.setFileType(message.getMessageType().name());
+        response.setFileType(message.getMessageType());
         response.setCreatedAt(message.getCreatedAt());
 
         return response;
     }
 
-    private String makeLastMessageText(ChatMessage message) {
-        if (message.getMessageType() == ChatMessageType.IMAGE) {
-            return "사진을 보냈습니다.";
-        }
-
-        if (message.getMessageType() == ChatMessageType.FILE) {
-            return "파일을 보냈습니다.";
-        }
-
-        if (message.getMessageType() == ChatMessageType.SYSTEM) {
-            return message.getContent();
-        }
-
-        return message.getContent();
-    }
+//    private String makeLastMessageText(ChatMessage message) {
+//        if (message.getMessageType() == ChatMessageType.IMAGE) {
+//            return "사진을 보냈습니다.";
+//        }
+//
+//        if (message.getMessageType() == ChatMessageType.FILE) {
+//            return "파일을 보냈습니다.";
+//        }
+//
+//        if (message.getMessageType() == ChatMessageType.SYSTEM) {
+//            return message.getContent();
+//        }
+//
+//        return message.getContent();
+//    }
 
     private ChatMessageType parseMessageType(String value) {
         if (value == null || value.isBlank()) {
