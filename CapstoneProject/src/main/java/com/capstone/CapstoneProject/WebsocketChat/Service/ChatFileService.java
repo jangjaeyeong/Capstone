@@ -1,17 +1,15 @@
 package com.capstone.CapstoneProject.WebsocketChat.Service;
 import com.capstone.CapstoneProject.Community.S3Service;
 import com.capstone.CapstoneProject.WebsocketChat.FileDTO.ChatFileResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ChatFileService {
 
     private final S3Service s3Service;
-
-    public ChatFileService(S3Service s3Service) {
-        this.s3Service = s3Service;
-    }
 
     public ChatFileResponse saveFile(String file, String fileType) {
         try {

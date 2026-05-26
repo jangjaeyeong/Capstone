@@ -70,7 +70,6 @@ public class PostService {
 
     }
     //상세페이지
-    @Transactional(readOnly = true)
     public BoardListDTO boardDetails(@PathVariable Long postId) {
         Board board = boardRepository.findById(postId).orElseThrow(() ->
                 new IllegalArgumentException("게시물이 삭제되었습니다."));
@@ -104,7 +103,7 @@ public class PostService {
             board.editPost(boardEditDTO);
         }
     }
-
+    //댓글 등록
     public  void writeComments(WriteCommentsDTO commentsDTO, String userName, Long postId) {
          Board board = boardRepository.findById(postId).orElseThrow(() ->
                  new IllegalArgumentException("삭제된 게시글입니다."));
@@ -113,5 +112,18 @@ public class PostService {
          commentsRepository.save(comments);
 
     }
-
+    public void onClickRecommend(Long postId) {
+        Board board = boardRepository.findById(postId).orElseThrow(()
+        -> new IllegalArgumentException("삭제된 게시글입니다."));
+        board.increaseRecommend();
+    }
+    public void myActivity(String user) {
+        Member member = memberRepository.findByUserID(user);
+        List<Board> board  = boardRepository.findAllByWriter(member);
+        List<Comments> comments = commentsRepository.findAllByWriter(member);
+        System.out.println(board.get(0).getTitle());
+        System.out.println(comments.get(0).getComment());
+        System.out.println(comments.get(0).getPostId().getTitle());
+        System.out.println(comments.get(1).getComment());
+    }
 }

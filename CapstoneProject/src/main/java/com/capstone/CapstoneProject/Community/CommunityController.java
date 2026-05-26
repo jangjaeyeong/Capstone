@@ -10,6 +10,7 @@ import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectCrea
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectEditDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectJoinDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO.*;
+import com.capstone.CapstoneProject.Member.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -144,6 +145,21 @@ public class CommunityController {
             checkUser(user);
             postService.writeComments(commentsDTO, user.getUsername(), postId);
             return ResponseEntity.ok().body("댓글이 등록되었습니다.");
+        }
+        //추천 수 증가
+        @PostMapping("api/community/posts/{postId}/like")
+        ResponseEntity<String> onClickRecommend(@PathVariable Long postId,
+                                                @AuthenticationPrincipal UserDetails user) {
+            checkUser(user);
+            postService.onClickRecommend(postId);
+            return ResponseEntity.ok().body("200");
+        }
+
+        @GetMapping("/api/community/me/activity")
+        ResponseEntity<String> myActivity(@AuthenticationPrincipal UserDetails user) {
+            checkUser(user);
+            postService.myActivity(user.getUsername());
+            return ResponseEntity.ok().body("Activity");
         }
 
     public void checkUser(UserDetails user) {
