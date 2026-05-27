@@ -51,6 +51,9 @@ public class ChatFileController {
 
     @GetMapping("/api/teamproject/{projectId}/chat/files")
     public List<ChatFileItemResponse> getFiles(@PathVariable Long projectId) {
-        return chatMessageService.getFiles(projectId);
+        List<ChatFileItemResponse> result = chatMessageService.getFiles(projectId);
+        System.out.println("파일 모아보기 결과 확인------" + result);
+//        return chatMessageService.getFiles(projectId);
+        return result;
     }
 }

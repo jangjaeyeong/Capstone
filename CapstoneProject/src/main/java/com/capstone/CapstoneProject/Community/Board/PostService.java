@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -117,13 +118,19 @@ public class PostService {
         -> new IllegalArgumentException("삭제된 게시글입니다."));
         board.increaseRecommend();
     }
-    public void myActivity(String user) {
+    public MyActivityResponseDTO myActivity(String user) {
         Member member = memberRepository.findByUserID(user);
         List<Board> board  = boardRepository.findAllByWriter(member);
         List<Comments> comments = commentsRepository.findAllByWriter(member);
-        System.out.println(board.get(0).getTitle());
-        System.out.println(comments.get(0).getComment());
-        System.out.println(comments.get(0).getPostId().getTitle());
-        System.out.println(comments.get(1).getComment());
+        List<String> myPosting = board.stream().map(Board::getTitle).
+                collect(Collectors.toList());
+        Map<String, String> myComments = comments.stream().
+                collect(Collectors.toMap(Comments::getComment,
+                        comments1 ->comments1.getPostId().getTitle()));
+        System.out.println("myPosting === " + myPosting);
+        System.out.println("myComments === " + myComments);
+        MyActivityResponseDTO activityResponse =
+                new MyActivityResponseDTO(myPosting, myComments);
+        return activityResponse;
     }
 }

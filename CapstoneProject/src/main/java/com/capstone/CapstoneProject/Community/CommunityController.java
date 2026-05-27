@@ -1,9 +1,6 @@
 package com.capstone.CapstoneProject.Community;
 
-import com.capstone.CapstoneProject.Community.Board.DTO.BoardCreateDTO;
-import com.capstone.CapstoneProject.Community.Board.DTO.BoardEditDTO;
-import com.capstone.CapstoneProject.Community.Board.DTO.BoardListDTO;
-import com.capstone.CapstoneProject.Community.Board.DTO.WriteCommentsDTO;
+import com.capstone.CapstoneProject.Community.Board.DTO.*;
 import com.capstone.CapstoneProject.Community.Board.PostService;
 import com.capstone.CapstoneProject.Community.TeamProject.*;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectCreateDTO;
@@ -156,10 +153,10 @@ public class CommunityController {
         }
 
         @GetMapping("/api/community/me/activity")
-        ResponseEntity<String> myActivity(@AuthenticationPrincipal UserDetails user) {
+        ResponseEntity<MyActivityResponseDTO> myActivity(@AuthenticationPrincipal UserDetails user) {
             checkUser(user);
-            postService.myActivity(user.getUsername());
-            return ResponseEntity.ok().body("Activity");
+            MyActivityResponseDTO activityResponse = postService.myActivity(user.getUsername());
+            return ResponseEntity.ok().body(activityResponse);
         }
 
     public void checkUser(UserDetails user) {
