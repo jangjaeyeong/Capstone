@@ -35,13 +35,14 @@ public class PostService {
     }
 
     //리스트
-    public Page<BoardListDTO> getList(int page, String keyword) {
+    public Page<BoardListDTO> getList(int page, String keyword,
+                                      String category) {
         int realPage = (page <= 0) ? 0 : page - 1;
-        Pageable pageable = PageRequest.of(realPage, 10,
+        Pageable pageable = PageRequest.of(realPage, 5,
                 Sort.Direction.DESC, "createdDate");
         Page<Board> paging;
 
-        if (keyword == null || keyword.isBlank()) {
+        if (keyword == null || keyword.isBlank() || keyword.equals("")) {
             paging = boardRepository.findAll(pageable);
         } else if (keyword.length() >= 2) {
             pageable = PageRequest.of(realPage, 5);
@@ -50,6 +51,10 @@ public class PostService {
         } else {
             paging = boardRepository.findByTitleContaining(keyword, pageable);
         }
+        if(!category.equals("ALL")) {
+            paging = boardRepository.findAllByCategory(category, pageable);
+        }else if(category.equals("ALL")) paging = boardRepository.findAll(pageable);
+        System.out.println(paging);
         return paging.map(board -> new BoardListDTO(
                 board.getId(),
                 board.getTitle(),

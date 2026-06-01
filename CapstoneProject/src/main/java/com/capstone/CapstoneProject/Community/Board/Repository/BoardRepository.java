@@ -22,9 +22,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
                     "('%', :keyword, '%')",
             nativeQuery = true)
     Page<Board> fullTextSearch(@Param("keyword")String title, Pageable pageable);
-
     Page<Board> findByTitleContaining(@Param("keyword")String title, Pageable pageable);
-
    List<Board> findAllByWriter(Member userName);
+    Page<Board> findAllByCategory(String category, Pageable pageable);
 
 }

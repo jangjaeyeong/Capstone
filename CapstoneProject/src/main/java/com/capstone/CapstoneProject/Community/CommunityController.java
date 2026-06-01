@@ -6,6 +6,7 @@ import com.capstone.CapstoneProject.Community.TeamProject.*;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectCreateDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectEditDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectJoinDTO;
+import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectLeaveDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO.*;
 import com.capstone.CapstoneProject.Member.Member;
 import jakarta.validation.Valid;
@@ -83,9 +84,9 @@ public class CommunityController {
             return ResponseEntity.ok("참가 신청이 완료되었습니다.");
         }
         @DeleteMapping("api/teamproject/leave")
-        public ResponseEntity<String> leaveProject(@RequestBody Map<String, Long> projectId,
+        public ResponseEntity<String> leaveProject(@RequestBody ProjectLeaveDTO projectLeaveDTO,
                                                    @AuthenticationPrincipal UserDetails user){
-            Long id = projectId.get("projectId");
+            Long id = projectLeaveDTO.getProjectId();
             projectService.leaveProject(id, user.getUsername());
             return ResponseEntity.ok("참여가 취소되었습니다.");
         }
@@ -104,9 +105,11 @@ public class CommunityController {
         @GetMapping("api/community/posts")
         ResponseEntity<Page<BoardListDTO>> listFreeBoard(@RequestParam(value="page",
                 defaultValue = "1")int pageNumber, @RequestParam
-                                                                 (value = "keyword", required = false)String keyword) {
+                (value = "keyword", required = false)String keyword,
+                @RequestParam(value = "category", defaultValue = "ALL", required = false) String category) {
             if(keyword!= null) keyword = keyword.trim();
-            Page<BoardListDTO> paging = postService.getList(pageNumber, keyword);
+            if(category!= null) category = category.trim();
+            Page<BoardListDTO> paging = postService.getList(pageNumber, keyword, category);
 
             return ResponseEntity.ok(paging);
         }
@@ -127,7 +130,7 @@ public class CommunityController {
 
             return ResponseEntity.ok().body("게시글이 삭제되었습니다.");
         }
-        //커뮤니티 수정
+        //커뮤니티 게시글 수정
         @PatchMapping("api/community/posts/{postId}")
         ResponseEntity<String> editPosting(@RequestBody BoardEditDTO boardEditDTO, @PathVariable Long postId,
                                            @AuthenticationPrincipal UserDetails user) {
@@ -135,6 +138,7 @@ public class CommunityController {
             postService.editPosting(boardEditDTO, postId, user.getUsername());
             return ResponseEntity.ok().body("수정이 완료되었습니다.");
         }
+        //댓글 작성
         @PostMapping("api/community/posts/{postId}/comments")
         ResponseEntity<String> writeComments(@RequestBody WriteCommentsDTO commentsDTO,
                                              @PathVariable Long postId,

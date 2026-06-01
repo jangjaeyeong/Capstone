@@ -25,5 +25,4 @@ public class ChatMention {
     @Column(updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
-
 }

@@ -2,6 +2,7 @@ package com.capstone.CapstoneProject.Community.Board.Entity;
 
 import com.capstone.CapstoneProject.Community.Board.DTO.BoardEditDTO;
 import com.capstone.CapstoneProject.Community.Post;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class Board extends Post {
     private String category;
     private boolean anonymous;
-    private int recommend;
+    @Column(nullable = false)
+    private int recommend = 0;
 
     public void editPost(BoardEditDTO boardEditDTO) {
         System.out.println("제목 :::: " +  boardEditDTO.getTitle());
