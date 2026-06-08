@@ -5,6 +5,7 @@ import com.capstone.CapstoneProject.Community.Board.Entity.Board;
 import com.capstone.CapstoneProject.Community.Board.Entity.Comments;
 import com.capstone.CapstoneProject.Community.Board.Repository.BoardRepository;
 import com.capstone.CapstoneProject.Community.Board.Repository.CommentsRepository;
+import com.capstone.CapstoneProject.Community.CommonService;
 import com.capstone.CapstoneProject.Member.Member;
 import com.capstone.CapstoneProject.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final CommentsRepository commentsRepository;
+    private final CommonService commonService;
 
     public void savePosting(BoardCreateDTO boardCreateDTO, String userName) {
         Member writer = memberRepository.findByUserID(userName);
@@ -41,20 +43,29 @@ public class PostService {
         Pageable pageable = PageRequest.of(realPage, 5,
                 Sort.Direction.DESC, "createdDate");
         Page<Board> paging;
-
-        if (keyword == null || keyword.isBlank() || keyword.equals("")) {
+        boolean hasKeyword = keyword.equals("");
+        if (keyword.equals("") && category.equals("ALL")) {
             paging = boardRepository.findAll(pageable);
-        } else if (keyword.length() >= 2) {
+
+        } else if (keyword.length() >= 2 && category.equals("ALL")) {
             pageable = PageRequest.of(realPage, 5);
             keyword = keyword.trim().replace(" ", "%");
             paging = boardRepository.fullTextSearch(keyword, pageable);
-        } else {
+
+        } else if(keyword.length() == 1 && category.equals("ALL")) {
             paging = boardRepository.findByTitleContaining(keyword, pageable);
+
+        }else if (keyword.length() >= 2 && !category.equals("ALL")) {
+            pageable = PageRequest.of(realPage, 5);
+            keyword = keyword.trim().replace(" ", "%");
+            paging = boardRepository.fullTextSearchByCategory(keyword, category, pageable);
+
+        }else if(keyword.length() == 1 && !category.equals("ALL")){
+            paging = boardRepository.findByCategoryIgnoreCaseAndTitleContaining(keyword, category, pageable);
+        }else {
+            paging = boardRepository.findByCategory(category, pageable);
         }
-        if(!category.equals("ALL")) {
-            paging = boardRepository.findAllByCategory(category, pageable);
-        }else if(category.equals("ALL")) paging = boardRepository.findAll(pageable);
-        System.out.println(paging);
+
         return paging.map(board -> new BoardListDTO(
                 board.getId(),
                 board.getTitle(),
@@ -62,7 +73,8 @@ public class PostService {
                 board.getViewCount(),
                 anonymous(board.getId()),
                 board.getCreatedDate(),
-                board.getModifiedDate()));
+                board.getModifiedDate(),
+                board.getLikeCount()));
     }
     //익명 체크 했을 경우 익명으로 표시
     public String anonymous(Long postId) {
@@ -90,7 +102,7 @@ public class PostService {
         return new BoardListDTO(postId,
                 board.getTitle(), board.getContent(), board.getViewCount(),
                 anonymous(board.getId()), board.getCreatedDate(),
-                board.getModifiedDate(), commentsDTO);
+                board.getModifiedDate(), commentsDTO, board.getLikeCount());
     }
     //삭제
     public void deletePosting(Long postId, String user) {
@@ -127,15 +139,15 @@ public class PostService {
         Member member = memberRepository.findByUserID(user);
         List<Board> board  = boardRepository.findAllByWriter(member);
         List<Comments> comments = commentsRepository.findAllByWriter(member);
-        List<String> myPosting = board.stream().map(Board::getTitle).
+        List<String> myPosts = board.stream().map(Board::getTitle).
                 collect(Collectors.toList());
-        Map<String, String> myComments = comments.stream().
+        Map<String, String> myCommentedPosts = comments.stream().
                 collect(Collectors.toMap(Comments::getComment,
                         comments1 ->comments1.getPostId().getTitle()));
-        System.out.println("myPosting === " + myPosting);
-        System.out.println("myComments === " + myComments);
+        System.out.println("myPosting === " + myPosts);
+        System.out.println("myComments === " + myCommentedPosts);
         MyActivityResponseDTO activityResponse =
-                new MyActivityResponseDTO(myPosting, myComments);
+                new MyActivityResponseDTO(myPosts, myCommentedPosts);
         return activityResponse;
     }
 }

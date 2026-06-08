@@ -16,14 +16,26 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     Optional<Board> findById(Long id);
     Page<Board> findAll(Pageable pageable);
-    @Query(value = "select * from free_board where  title LIKE CONCAT('%', :keyword, '%')" +
+    @Query(value = "select * from board where  title LIKE CONCAT('%', :keyword, '%')" +
             " order by created_date desc",
-            countQuery = "select count(*) from free_board where title LIKE CONCAT" +
+            countQuery = "select count(*) from board where title LIKE CONCAT" +
                     "('%', :keyword, '%')",
             nativeQuery = true)
     Page<Board> fullTextSearch(@Param("keyword")String title, Pageable pageable);
-    Page<Board> findByTitleContaining(@Param("keyword")String title, Pageable pageable);
+    Page<Board> findByTitleContaining(String title, Pageable pageable);
    List<Board> findAllByWriter(Member userName);
-    Page<Board> findAllByCategory(String category, Pageable pageable);
+    Page<Board> findByCategory(String category, Pageable pageable);
+    @Query(value = "select * from board where category = :category AND title LIKE CONCAT('%', :keyword, '%')" +
+            " order by created_date desc",
+            countQuery = "select count(*) from board where category = :category AND title LIKE CONCAT" +
+                    "('%', :keyword, '%')",
+            nativeQuery = true)
+    Page<Board> fullTextSearchByCategory(@Param("keyword")String title,
+                                         @Param("category") String category,
+                                         Pageable pageable);
 
+    @Query("SELECT b FROM Board b WHERE b.category = :category AND b.title LIKE CONCAT('%', :keyword, '%')")
+    Page<Board> findByCategoryIgnoreCaseAndTitleContaining(@Param("keyword") String title,
+                                                           @Param("category") String category,
+                                                           Pageable pageable);
 }

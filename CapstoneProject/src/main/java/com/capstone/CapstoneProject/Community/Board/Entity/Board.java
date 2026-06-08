@@ -17,7 +17,7 @@ public class Board extends Post {
     private String category;
     private boolean anonymous;
     @Column(nullable = false)
-    private int recommend = 0;
+    private int likeCount = 0;
 
     public void editPost(BoardEditDTO boardEditDTO) {
         System.out.println("제목 :::: " +  boardEditDTO.getTitle());
@@ -26,7 +26,7 @@ public class Board extends Post {
     }
 
     public void increaseRecommend() {
-        this.recommend++;
+        this.likeCount++;
     }
 }
 

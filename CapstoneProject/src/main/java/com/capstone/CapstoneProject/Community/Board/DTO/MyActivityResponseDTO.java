@@ -9,6 +9,6 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class MyActivityResponseDTO {
-    private List<String> myPosting;
-    private Map<String, String> myComments;
+    private List<String> myPosts;
+    private Map<String, String> myCommentedPosts;
 }
