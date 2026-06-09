@@ -16,11 +16,11 @@ public class ChatFileService {
             if (file == null || file.isEmpty()) {
                 throw new IllegalArgumentException("파일이 비어 있습니다.");
             }
+            String originalName = file;
+             file = "images/" + UUID.randomUUID() + "_" + file;
 
-             file = UUID.randomUUID() + "_" + file;
-            String originalName = "images/" + file;
 
-            ChatFileResponse fileUrl = s3Service.createPresignedUrl(originalName, fileType);
+            ChatFileResponse fileUrl = s3Service.createPresignedUrl(file, fileType, originalName);
             System.out.println(fileUrl);
             return fileUrl;
         } catch (Exception e) {
