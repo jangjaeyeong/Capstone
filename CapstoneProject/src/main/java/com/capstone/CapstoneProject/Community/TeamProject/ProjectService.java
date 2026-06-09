@@ -23,6 +23,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.thymeleaf.standard.expression.Each;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -229,5 +231,13 @@ public class ProjectService {
             projectMemberRepository.delete(member);
         }
 
-
+    public List<JoinedTeamProjectDTO> joinedProject(String userName) {
+        Member loginUser = memberRepository.findByUserID(userName);
+        List<ProjectMember> member = projectMemberRepository.findAllByUser(loginUser);
+        List<JoinedTeamProjectDTO> dto = member.stream().
+                map(project -> new JoinedTeamProjectDTO(
+                        project)).toList();
+        return dto;
     }
+
+}

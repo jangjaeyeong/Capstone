@@ -6,6 +6,7 @@ import com.capstone.CapstoneProject.Member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @SuperBuilder
+@ToString
 public class TeamProject extends Post {
     private String category;   //분야
     private int userLimit;   //최대 인원

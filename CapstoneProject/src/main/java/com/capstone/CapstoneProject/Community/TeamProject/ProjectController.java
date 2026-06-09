@@ -1,10 +1,12 @@
 package com.capstone.CapstoneProject.Community.TeamProject;
 
 import com.capstone.CapstoneProject.Community.CommonService;
+import com.capstone.CapstoneProject.Community.TeamProject.Entity.ProjectMember;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectCreateDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectEditDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectJoinDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.RequestDTO.ProjectLeaveDTO;
+import com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO.JoinedTeamProjectDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO.ProjectDetailDTO;
 import com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO.ProjectListDTO;
 import jakarta.validation.Valid;
@@ -15,6 +17,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Component
@@ -81,6 +85,12 @@ public class ProjectController {
         Long id = projectLeaveDTO.getProjectId();
         projectService.leaveProject(id, user.getUsername());
         return ResponseEntity.ok("참여가 취소되었습니다.");
+    }
+    @GetMapping("/api/teamproject/joined")
+    public ResponseEntity<List<JoinedTeamProjectDTO>> joinedProject(@AuthenticationPrincipal UserDetails user) {
+        commonService.checkUser(user);
+        List<JoinedTeamProjectDTO> dto = projectService.joinedProject(user.getUsername());
+        return ResponseEntity.ok(dto);
     }
 
 
