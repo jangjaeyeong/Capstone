@@ -50,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults());   //Ngrok localhost 거부문제 개선
+        http.cors(Customizer.withDefaults());    //Ngrok localhost 거부문제 개선
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -107,7 +107,7 @@ public class SecurityConfig {
         public CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
             // 프론트엔드 주소 허용 (포트 번호 주의!)
-            configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://3.34.36.104"));
+            configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://provi.kr", "https://www.provi.kr"));
             // ⭐️ DELETE, PUT 등 모든 방식 허용
             configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
             // Authorization 헤더 허용
