@@ -82,4 +82,6 @@ public class ProjectController {
         projectService.leaveProject(id, user.getUsername());
         return ResponseEntity.ok("참여가 취소되었습니다.");
     }
+
+
 }

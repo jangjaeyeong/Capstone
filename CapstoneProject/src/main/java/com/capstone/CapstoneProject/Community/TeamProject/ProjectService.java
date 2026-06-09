@@ -228,4 +228,6 @@ public class ProjectService {
                     -> new IllegalArgumentException("참여중인 유저가 아닙니다."));
             projectMemberRepository.delete(member);
         }
+
+
     }
