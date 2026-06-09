@@ -50,15 +50,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults());    //Ngrok localhost 거부문제 개선
+        //Ngrok localhost 거부문제 개선
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                        .requestMatchers("/api/auth/email/send-code",
-                                "/api/auth/email/verify-code").permitAll()
-                        .anyRequest().authenticated())
+                        authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                                .requestMatchers("/api/auth/email/send-code",
+                                        "/api/auth/email/verify-code").permitAll()
+                                .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(authorization -> authorization
                                 .baseUri("/api/oauth2/authorization"))
@@ -70,8 +71,8 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults());
         //Ngrok OPTION 문제 개선
         http.exceptionHandling(exception -> exception
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler))
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
@@ -88,6 +89,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
+
     public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
         private TokenProvider tokenProvider;
@@ -102,23 +104,23 @@ public class SecurityConfig {
             JwtFilter customFilter = new JwtFilter(tokenProvider);
             http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         }
-
-        @Bean
-        public CorsConfigurationSource corsConfigurationSource() {
-            CorsConfiguration configuration = new CorsConfiguration();
-            // 프론트엔드 주소 허용 (포트 번호 주의!)
-            configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://provi.kr", "https://www.provi.kr"));
-            // ⭐️ DELETE, PUT 등 모든 방식 허용
-            configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            // Authorization 헤더 허용
-            configuration.setAllowedHeaders(List.of("*"));
-            configuration.setAllowCredentials(true);
-
-            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-            source.registerCorsConfiguration("/**", configuration);
-            return source;
-        }
     }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // 프론트엔드 주소 허용 (포트 번호 주의!)
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:3000", "https://provi.kr", "https://www.provi.kr"));
+        // ⭐️ DELETE, PUT 등 모든 방식 허용
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        // Authorization 헤더 허용
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+
+    }
 }
+
 
