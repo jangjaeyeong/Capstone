@@ -236,7 +236,7 @@ public class ProjectService {
         List<ProjectMember> member = projectMemberRepository.findAllByUser(loginUser);
         List<JoinedTeamProjectDTO> dto = member.stream().
                 map(project -> new JoinedTeamProjectDTO(
-                        project)).toList();
+                        project, projectMemberRepository.countByProject_id(project.getProject().getId()))).toList();
         return dto;
     }
 

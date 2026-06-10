@@ -2,6 +2,7 @@ package com.capstone.CapstoneProject.Community.TeamProject.ResponseDTO;
 
 import com.capstone.CapstoneProject.Community.TeamProject.Entity.ProjectMember;
 import com.capstone.CapstoneProject.Community.TeamProject.Entity.TeamProject;
+import com.capstone.CapstoneProject.Community.TeamProject.Repository.ProjectMemberRepository;
 import com.capstone.CapstoneProject.Member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,22 +14,21 @@ import java.util.List;
 public class JoinedTeamProjectDTO {
     private Long id;
     private String title;
-    private String content;
     private String category;
-    private String leaderName;
+    private String authority;
     private int userLimit;
     private LocalDateTime createdAt;
-    private List<String> members;
+    private Long members;
 
-    public JoinedTeamProjectDTO(ProjectMember projectMember) {
+    public JoinedTeamProjectDTO(ProjectMember projectMember, Long memberCount) {
         this.id = projectMember.getProject().getId();
         this.title = projectMember.getProject().getTitle();
-        this.content = projectMember.getProject().getContent();
         this.category = projectMember.getProject().getCategory();
-        this.leaderName = projectMember.getAuthority();
+        this.authority = projectMember.getAuthority();
         this.userLimit = projectMember.getProject().getUserLimit();
         this.createdAt = projectMember.getProject().getCreatedDate();
-//        this.members = allMembers.stream().map(pm -> pm.getUser().getProfileName()).toList();
+        this.members = memberCount;
+
 
     }
 }
