@@ -518,7 +518,7 @@ DATABASE_URL=your_database_url
 
 | 이름 | 역할 | 주요 담당 |
 |---|---|---|
-| **장재영** | Backend / AI | Spring Boot Backend, DB, 회원 인증/인가, JWT, OAuth2, 팀 프로젝트, 실시간 채팅, AWS S3, FastAPI AI Server, OpenAI API, RAG, 채용공고 데이터 처리 |
+| **장재영** | Backend / AI | Spring Boot 기반 Backend 개발, REST API 및 DB 연동, 인증/인가, 팀 프로젝트 및 실시간 채팅 기능 구현, 기존 AI 서버 인수 및 기능 보완·수정, Backend-AI 서버 연동 |
 | **정겨운** | Frontend | HTML, CSS, JavaScript 기반 UI 구현, 페이지 구성, Backend API 연동, AI 추천/면접/커뮤니티/팀 프로젝트 화면 구현 |
 
 ---
