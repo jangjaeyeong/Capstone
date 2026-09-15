@@ -289,7 +289,6 @@ Presigned URL을 사용하여 파일 업로드를 처리하고, 서버에서 파
 | OAuth2 Client | Kakao / Naver 로그인 |
 | Spring Mail | 이메일 인증 |
 | WebSocket / STOMP | 실시간 채팅 |
-| Thymeleaf | Spring 웹 지원 |
 | Gradle | 프로젝트 빌드 |
 
 ### AI Server
